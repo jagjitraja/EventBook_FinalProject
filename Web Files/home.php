@@ -12,14 +12,20 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 
-
+    <link rel="stylesheet" href="homeStyles.css"/>
     <script>
+
+        function hideModal() {
+            $("#modal_sign_in_register_blanket").hide();
+        }
 
         function showModal(e) {
 
             var modalHeader = "";
             var modalDescription = "";
-            switch (e){
+
+
+            switch (e) {
                 case "signInAnchor":
                     modalHeader = "Sign In";
                     modalDescription = "Sign In to post events or sign up to events";
@@ -29,17 +35,19 @@
                     modalHeader = "Register";
                     modalDescription = "Register to post events or sign up to events";
                     break;
+                default:
+                    hideModal();
             }
 
-            $("#modal_sign_in_register").toggle();
-
+            $("#modal_sign_in_register_blanket").toggle();
+            $('#modal_sign_in_register_blanket').animate({opacity: 1},300);
         }
 
     </script>
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:24px 0;">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:0">
     <a class="navbar-brand" href="./home.php">EventBook</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#myNavBar">
         <span class="navbar-toggler-icon"></span>
@@ -48,7 +56,7 @@
     <div class="collapse navbar-collapse" id="myNavBar">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" id="signInAnchor"  onclick="showModal(this.id)">Sign In</a>
+                <a class="nav-link" id="signInAnchor" onclick="showModal(this.id)">Sign In</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="registerAnchor" onclick="showModal(this.id)">Register</a>
@@ -60,26 +68,25 @@
         </form>
     </div>
 
-    <!--MODALS-->
-    <div class="modal fade" id="modal_sign_in_register" role="dialog" style="display: none;">
+</nav>
 
-        <div class="modal-dialog">
+    <!--MODALS-->
+    <div class="modal fade" id="modal_sign_in_register_blanket" role="dialog" onclick="hideModal()">
+
+        <div id ="modal_div" class="modal-dialog modal-dialog-centered">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Modal Header</h4>
+                    <button type="button" class="close" onclick="hideModal()">&times;</button>
                 </div>
                 <div class="modal-body">
                     <p>Some text in the modal.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" onclick="hideModal()">Close</button>
                 </div>
             </div>
-
         </div>
     </div>
-
-</nav>
 </body>
