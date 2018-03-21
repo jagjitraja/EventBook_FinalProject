@@ -16,31 +16,29 @@
     <script>
 
         function hideModal() {
-            $("#modal_sign_in_register_blanket").hide();
+            $("#blanket").hide("slow");
+            $("#modalDiv").toggle("slow");
         }
 
         function showModal(e) {
 
-            var modalHeader = "";
-            var modalDescription = "";
-
+            var modalHeaderValue = "";
 
             switch (e) {
                 case "signInAnchor":
-                    modalHeader = "Sign In";
-                    modalDescription = "Sign In to post events or sign up to events";
+                    modalHeaderValue = "Sign In";
                     break;
 
                 case "registerAnchor":
-                    modalHeader = "Register";
-                    modalDescription = "Register to post events or sign up to events";
+                    modalHeaderValue = "Register";
                     break;
                 default:
                     hideModal();
             }
 
-            $("#modal_sign_in_register_blanket").toggle();
-            $('#modal_sign_in_register_blanket').animate({opacity: 1},300);
+            $("#modalHeader").html(modalHeaderValue);
+            $("#modalDiv").toggle("slow");
+            $("#blanket").toggle("slow");
         }
 
     </script>
@@ -70,18 +68,33 @@
 
 </nav>
 
+    <div id="blanket" >
+    </div>
     <!--MODALS-->
-    <div class="modal fade" id="modal_sign_in_register_blanket" role="dialog" onclick="hideModal()">
+    <div class="modal" id="modalDiv" role="dialog">
 
-        <div id ="modal_div" class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Modal Header</h4>
+                    <h4 class="modal-title" id="modalHeader"></h4>
                     <button type="button" class="close" onclick="hideModal()">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <p>Some text in the modal.</p>
+                    <form id="modalForm">
+                        <div class="form-group row">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" onclick="hideModal()">Close</button>

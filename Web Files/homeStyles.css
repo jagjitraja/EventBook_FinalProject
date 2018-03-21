@@ -2,8 +2,11 @@ body,html{
     height: 100vh;
     width: 100vw;
 }
+a{
+    cursor: pointer;
+}
 
-#modal_sign_in_register_blanket{
+#blanket{
     display: none;
     height: 100%;
     width:100%;
@@ -12,13 +15,16 @@ body,html{
     top: 0;
     left: 0;
     z-index: 1000;
+    opacity: 0.5;
 }
 
-#modal_div{
+
+#modalDiv{
+    opacity: 1;
     position: relative;
-    top: calc((100% - 500px)/2);
-    left: calc((100% - 500px)/2);
-    height: 500px;
     width: 500px;
-    margin: 0;
+    height: 500px;
+    top: calc(50vh - 250px);
+    left: calc(50vw - 250px);
+    z-index: 1001;
 }
