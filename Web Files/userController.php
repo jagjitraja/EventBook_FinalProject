@@ -15,10 +15,12 @@ if($_POST['PAGE']=='HOME'){
 
     if($_POST['COMMAND']=='SIGNIN'){
 
-        foreach ($_POST as $c => $d){
-            echo "KEY ".$c."   Value ".$d;
-        }
+        //check validity
     }
+    elseif ($_POST['COMMAND'] == 'REGISTER'){
+        //check validity and sign in
+    }
+
 
 
 }elseif ($_POST['PAGE']=='MAIN'){

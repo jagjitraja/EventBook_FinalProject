@@ -12,69 +12,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="homeStyles.css"/>
-    <script>
-
-        //is submitMode ==1, then user is signing in else if submitMode==2 user is registering;
-        var submitMode = 1;
-
-        function hideModal() {
-            $("#modalForm").trigger('reset');
-            $("#blanket").hide("slow");
-            $("#modalDiv").hide("slow");
-        }
-
-        function showModal(e) {
-            var modalHeaderValue = "";
-            switch (e) {
-                case "signInAnchor":
-                    modalHeaderValue = "Sign In";
-                    $("#userNameRow").hide();
-                    $("#phoneRow").hide();
-                    $("#submitButton").html("SignIn");
-                    $("#inputPassword").prop('required', true);
-                    $("#inputEmail").prop('required', true);
-                    submitMode = 1;
-                    break;
-
-                case "registerAnchor":
-                    modalHeaderValue = "Register"
-                    $("#userNameRow").show();
-                    $("#phoneRow").show();
-                    $("#submitButton").html("Register");
-                    $("#inputEmail").prop('required', true);
-                    $("#inputPhoneNumber").prop('required', true);
-                    $("#inputPassword").prop('required', true);
-                    $("#inputUserName").prop('required', true);
-                    submitMode = 2;
-                    break;
-
-                default:
-                    hideModal();
-            }
-            $("#modalHeader").html(modalHeaderValue);
-            $("#modalDiv").toggle("slow");
-            $("#blanket").toggle("slow");
-        }
-
-    $("#modalForm").on('submit',function(){
-
-        switch (submitMode) {
-            case 1:
-                $("#commandInput").val("SIGNIN");
-                $("#modalForm").submit();
-                checkFormValues();
-                break;
-            case 2:
-                $("#commandInput").val("REGISTER");
-                $("#modalForm").submit();
-                break;
-            default:
-                alert("SSSS");
-                break;
-        }
-    });
-
-    </script>
+    <script src="homeFunctions.js"type="application/javascript"></script>
 </head>
 
 <body>
@@ -130,7 +68,8 @@
                     <div class="form-group row">
                         <label for="EMAIL" class="col-sm-3 col-form-label">Email:</label>
                         <div class="col-sm-9">
-                            <input type="email" class="form-control" name="EMAIL" id="inputEmail" placeholder="Email"  required="" />
+                            <input type="email" class="form-control" name="EMAIL" id="inputEmail" placeholder="Email"
+                                   required=""/>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -139,14 +78,17 @@
                             <input type="password" class="form-control" name="PASSWORD" id="inputPassword"
                                    placeholder="Password" minlength="8" maxlength="30"
                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
-                                   title="Please enter atleast one number, one lowercase character and one uppercase character" required="" />
+                                   title="Please enter atleast one number, one lowercase character and one uppercase character"
+                                   required=""/>
                         </div>
                     </div>
+
                     <div class="form-group row" id="phoneRow">
                         <label for="inputPhoneNumber" class="col-sm-3 col-form-label">Phone Number:</label>
                         <div class="col-sm-9">
                             <input type="tel" maxlength="13" class="form-control" name="PHONE_NUMBER"
-                                   id="inputPhoneNumber" placeholder="Phone number" minlength="10"/>
+                                   id="inputPhoneNumber"
+                                   pattern="[+]{0,1}[0-9]{10,13}" placeholder="Phone number" minlength="10" title="Only Numbers allowed"/>
                         </div>
                     </div>
 
