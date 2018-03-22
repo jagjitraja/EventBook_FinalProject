@@ -30,8 +30,8 @@
                     $("#userNameRow").hide();
                     $("#phoneRow").hide();
                     $("#submitButton").html("SignIn");
-                    $("#inputEmail").prop('required',false);
-                    $("#inputPhoneNumber").prop('required',false);
+                    $("#inputPassword").prop('required', true);
+                    $("#inputEmail").prop('required', true);
                     submitMode = 1;
                     break;
 
@@ -40,8 +40,10 @@
                     $("#userNameRow").show();
                     $("#phoneRow").show();
                     $("#submitButton").html("Register");
-                    $("#inputEmail").prop('required',true);
-                    $("#inputPhoneNumber").prop('required',true);
+                    $("#inputEmail").prop('required', true);
+                    $("#inputPhoneNumber").prop('required', true);
+                    $("#inputPassword").prop('required', true);
+                    $("#inputUserName").prop('required', true);
                     submitMode = 2;
                     break;
 
@@ -53,26 +55,23 @@
             $("#blanket").toggle("slow");
         }
 
+    $("#modalForm").on('submit',function(){
 
-        function submitForm() {
-            switch (submitMode){
-                case 1:
-                    $("#commandInput").val("SIGNIN");
-                    $("#modalForm").submit();
-                    alert("SINGNIN");
-                    break;
-                case 2:
-                    $("#commandInput").val("REGISTER");
-                    $("#modalForm").submit();
-                    alert("REGISTER");
-                    break;
-                default:
-                    alert("SSSS");
-                    break;
-            }
+        switch (submitMode) {
+            case 1:
+                $("#commandInput").val("SIGNIN");
+                $("#modalForm").submit();
+                checkFormValues();
+                break;
+            case 2:
+                $("#commandInput").val("REGISTER");
+                $("#modalForm").submit();
+                break;
+            default:
+                alert("SSSS");
+                break;
         }
-
-
+    });
 
     </script>
 </head>
@@ -101,57 +100,63 @@
 
 </nav>
 
-    <div id="blanket" onclick="hideModal()">
-    </div>
-    <!--MODALS-->
-    <div class="modal" id="modalDiv" role="dialog">
+<div id="blanket" onclick="hideModal()">
+</div>
+<!--MODALS-->
+<div class="modal" id="modalDiv" role="dialog">
 
-        <div class="modal-dialog modal-dialog-centered">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="modalHeader"></h4>
-                    <button type="button" class="close" onclick="hideModal()">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form id="modalForm" method="post" action="./userController.php">
+    <div class="modal-dialog modal-dialog-centered">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalHeader"></h4>
+                <button type="button" class="close" onclick="hideModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="modalForm" method="post" action="./userController.php">
 
-                        <div class="form-group row" id="hiddenInputValues" style="display: none;">
-                            <input type="hidden" name="PAGE" value="HOME"/>
-                            <input type="hidden" id="commandInput" name="COMMAND" value="SIGNIN"/>
+                    <div class="form-group row" id="hiddenInputValues" style="display: none;">
+                        <input type="hidden" name="PAGE" value="HOME"/>
+                        <input type="hidden" id="commandInput" name="COMMAND" value="SIGNIN"/>
+                    </div>
+                    <div class="form-group row" id="userNameRow">
+                        <label for="inputUserName" class="col-sm-3 col-form-label">Username:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="USERNAME" maxlength="45" id="inputUserName"
+                                   placeholder="Name" minlength="5"/>
                         </div>
-                        <div class="form-group row" id="userNameRow">
-                            <label for="inputUserName" class="col-sm-3 col-form-label">Username:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" maxlength="45" id="inputUserName" placeholder="Username">
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="EMAIL" class="col-sm-3 col-form-label">Email:</label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control" name="EMAIL" id="inputEmail" placeholder="Email"  required="" />
                         </div>
-                        <div class="form-group row">
-                            <label for="inputEmail" class="col-sm-3 col-form-label">Email:</label>
-                            <div class="col-sm-9">
-                                <input type="email" class="form-control" id="inputEmail" placeholder="Email" required>
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Password:</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" name="PASSWORD" id="inputPassword"
+                                   placeholder="Password" minlength="8" maxlength="30"
+                                   pattern="([0-9]+).{0,}([a-z]+).{0,}([A-Z])+" required="" />
                         </div>
-                        <div class="form-group row">
-                            <label for="inputPassword" class="col-sm-3 col-form-label">Password:</label>
-                            <div class="col-sm-9">
-                                <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
-                            </div>
+                    </div>
+                    <div class="form-group row" id="phoneRow">
+                        <label for="inputPhoneNumber" class="col-sm-3 col-form-label">Phone Number:</label>
+                        <div class="col-sm-9">
+                            <input type="tel" maxlength="13" class="form-control" name="PHONE_NUMBER"
+                                   id="inputPhoneNumber" placeholder="Phone number" minlength="10"/>
                         </div>
-                        <div class="form-group row" id="phoneRow">
-                            <label for="inputPhoneNumber" class="col-sm-3 col-form-label">Phone Number:</label>
-                            <div class="col-sm-9">
-                                <input type="tel" maxlength="13" class="form-control" id="inputPhoneNumber" placeholder="Phone number">
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                    </div>
 
-                <div class="modal-footer">
-                    <button id="submitButton" type="submit" class="btn btn-success" value="Submit" onclick="submitForm()">Submit</button>
-                    <button type="button" class="btn btn-danger" onclick="hideModal()" value="Close">Close</button>
-                </div>
+                    <div class="modal-footer">
+                        <button id="submitButton" type="submit" class="btn btn-success" value="Submit">Submit</button>
+                        <button type="button" class="btn btn-danger" onclick="hideModal()" value="Close">Close</button>
+                    </div>
+                </form>
+
+
             </div>
         </div>
     </div>
+</div>
 </body>
