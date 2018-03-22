@@ -15,9 +15,10 @@
     <script>
 
         //is submitMode ==1, then user is signing in else if submitMode==2 user is registering;
-        submitMode = 1;
+        var submitMode = 1;
 
         function hideModal() {
+            $("#modalForm").trigger('reset');
             $("#blanket").hide("slow");
             $("#modalDiv").hide("slow");
         }
@@ -137,7 +138,8 @@
                         <div class="col-sm-9">
                             <input type="password" class="form-control" name="PASSWORD" id="inputPassword"
                                    placeholder="Password" minlength="8" maxlength="30"
-                                   pattern="([0-9]+).{0,}([a-z]+).{0,}([A-Z])+" required="" />
+                                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
+                                   title="Please enter atleast one number, one lowercase character and one uppercase character" required="" />
                         </div>
                     </div>
                     <div class="form-group row" id="phoneRow">
