@@ -15,16 +15,27 @@ a{
     top: 0;
     left: 0;
     z-index: 1000;
-    opacity: 0.5;
+    opacity: 0.75;
 }
 
+.nav-item{
+    margin: 0.5em;
+    border-radius: 0.25em;
+    transition:all 0.5s;
+}
+.nav-item:hover{
+    background: rgba(0,255,0,0.5);
+    transition:all 0.5s;
+
+}
 
 #modalDiv{
     opacity: 1;
     position: relative;
-    width: 500px;
-    height: 500px;
-    top: calc(50vh - 250px);
-    left: calc(50vw - 250px);
+    max-width: 75%;
+    max-height: 50%;
+    top: calc(50vh - 35%);
+    left: calc(50vw - 37.5%);
     z-index: 1001;
+    margin: 0;
 }

@@ -17,7 +17,7 @@
 
         function hideModal() {
             $("#blanket").hide("slow");
-            $("#modalDiv").toggle("slow");
+            $("#modalDiv").hide("slow");
         }
 
         function showModal(e) {
@@ -27,15 +27,20 @@
             switch (e) {
                 case "signInAnchor":
                     modalHeaderValue = "Sign In";
+                    $("#userNameRow").hide();
+                    $("#phoneRow").hide();
+                    $("#submitButton").html("SignIn");
                     break;
 
                 case "registerAnchor":
-                    modalHeaderValue = "Register";
+                    modalHeaderValue = "Register"
+                    $("#userNameRow").show();
+                    $("#phoneRow").show();
+                    $("#submitButton").html("Register");
                     break;
                 default:
                     hideModal();
             }
-
             $("#modalHeader").html(modalHeaderValue);
             $("#modalDiv").toggle("slow");
             $("#blanket").toggle("slow");
@@ -68,7 +73,7 @@
 
 </nav>
 
-    <div id="blanket" >
+    <div id="blanket" onclick="hideModal()">
     </div>
     <!--MODALS-->
     <div class="modal" id="modalDiv" role="dialog">
@@ -82,22 +87,35 @@
                 </div>
                 <div class="modal-body">
                     <form id="modalForm">
+                        <div class="form-group row" id="userNameRow">
+                            <label for="inputUserName" class="col-sm-3 col-form-label">Username:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" maxlength="45" id="inputUserName" placeholder="Username">
+                            </div>
+                        </div>
                         <div class="form-group row">
-                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10">
+                            <label for="inputEmail" class="col-sm-3 col-form-label">Email:</label>
+                            <div class="col-sm-9">
                                 <input type="email" class="form-control" id="inputEmail" placeholder="Email">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                            <div class="col-sm-10">
+                            <label for="inputPassword" class="col-sm-3 col-form-label">Password:</label>
+                            <div class="col-sm-9">
                                 <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group row" id="phoneRow">
+                            <label for="inputPhoneNumber" class="col-sm-3 col-form-label">Phone Number:</label>
+                            <div class="col-sm-9">
+                                <input type="tel" maxlength="13" class="form-control" id="inputPhoneNumber" placeholder="###-###-####">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" onclick="hideModal()">Close</button>
+                    <button id="submitButton" type="button" class="btn btn-success" onclick="hideModal()">Close</button>
+                    <button type="button" class="btn btn-danger" onclick="hideModal()">Close</button>
                 </div>
             </div>
         </div>
