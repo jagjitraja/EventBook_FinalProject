@@ -11,9 +11,11 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-
     <link rel="stylesheet" href="homeStyles.css"/>
     <script>
+
+        //is submitMode ==1, then user is signing in else if submitMode==2 user is registering;
+        submitMode = 1;
 
         function hideModal() {
             $("#blanket").hide("slow");
@@ -21,15 +23,16 @@
         }
 
         function showModal(e) {
-
             var modalHeaderValue = "";
-
             switch (e) {
                 case "signInAnchor":
                     modalHeaderValue = "Sign In";
                     $("#userNameRow").hide();
                     $("#phoneRow").hide();
                     $("#submitButton").html("SignIn");
+                    $("#inputEmail").prop('required',false);
+                    $("#inputPhoneNumber").prop('required',false);
+                    submitMode = 1;
                     break;
 
                 case "registerAnchor":
@@ -37,7 +40,11 @@
                     $("#userNameRow").show();
                     $("#phoneRow").show();
                     $("#submitButton").html("Register");
+                    $("#inputEmail").prop('required',true);
+                    $("#inputPhoneNumber").prop('required',true);
+                    submitMode = 2;
                     break;
+
                 default:
                     hideModal();
             }
@@ -45,6 +52,27 @@
             $("#modalDiv").toggle("slow");
             $("#blanket").toggle("slow");
         }
+
+
+        function submitForm() {
+            switch (submitMode){
+                case 1:
+                    $("#commandInput").val("SIGNIN");
+                    $("#modalForm").submit();
+                    alert("SINGNIN");
+                    break;
+                case 2:
+                    $("#commandInput").val("REGISTER");
+                    $("#modalForm").submit();
+                    alert("REGISTER");
+                    break;
+                default:
+                    alert("SSSS");
+                    break;
+            }
+        }
+
+
 
     </script>
 </head>
@@ -86,7 +114,12 @@
                     <button type="button" class="close" onclick="hideModal()">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <form id="modalForm">
+                    <form id="modalForm" method="post" action="./userController.php">
+
+                        <div class="form-group row" id="hiddenInputValues" style="display: none;">
+                            <input type="hidden" name="PAGE" value="HOME"/>
+                            <input type="hidden" id="commandInput" name="COMMAND" value="SIGNIN"/>
+                        </div>
                         <div class="form-group row" id="userNameRow">
                             <label for="inputUserName" class="col-sm-3 col-form-label">Username:</label>
                             <div class="col-sm-9">
@@ -96,26 +129,27 @@
                         <div class="form-group row">
                             <label for="inputEmail" class="col-sm-3 col-form-label">Email:</label>
                             <div class="col-sm-9">
-                                <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                <input type="email" class="form-control" id="inputEmail" placeholder="Email" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputPassword" class="col-sm-3 col-form-label">Password:</label>
                             <div class="col-sm-9">
-                                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                                <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
                             </div>
                         </div>
                         <div class="form-group row" id="phoneRow">
                             <label for="inputPhoneNumber" class="col-sm-3 col-form-label">Phone Number:</label>
                             <div class="col-sm-9">
-                                <input type="tel" maxlength="13" class="form-control" id="inputPhoneNumber" placeholder="###-###-####">
+                                <input type="tel" maxlength="13" class="form-control" id="inputPhoneNumber" placeholder="Phone number">
                             </div>
                         </div>
                     </form>
                 </div>
+
                 <div class="modal-footer">
-                    <button id="submitButton" type="button" class="btn btn-success" onclick="hideModal()">Close</button>
-                    <button type="button" class="btn btn-danger" onclick="hideModal()">Close</button>
+                    <button id="submitButton" type="submit" class="btn btn-success" value="Submit" onclick="submitForm()">Submit</button>
+                    <button type="button" class="btn btn-danger" onclick="hideModal()" value="Close">Close</button>
                 </div>
             </div>
         </div>
