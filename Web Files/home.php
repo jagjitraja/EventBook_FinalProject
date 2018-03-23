@@ -13,6 +13,63 @@
 
     <link rel="stylesheet" href="View_Styles_And_JS/homeStyles.css"/>
     <script src="View_Styles_And_JS/homeFunctions.js" type="application/javascript"></script>
+
+
+    <script>
+
+        function showModal(e) {
+            var modalHeaderValue = "";
+            switch (e) {
+                case "signInAnchor":
+                    modalHeaderValue = "Sign In";
+                    $("#userNameRow").hide();
+                    $("#phoneRow").hide();
+                    $("#submitButton").html("SignIn");
+                    $("#inputPassword").prop('required', true);
+                    $("#inputEmail").prop('required', true);
+                    submitMode = 1;
+                    break;
+
+                case "registerAnchor":
+                    modalHeaderValue = "Register"
+                    $("#userNameRow").show();
+                    $("#phoneRow").show();
+                    $("#submitButton").html("Register");
+                    $("#inputEmail").prop('required', true);
+                    $("#inputPhoneNumber").prop('required', true);
+                    $("#inputPassword").prop('required', true);
+                    $("#inputUserName").prop('required', true);
+                    submitMode = 2;
+                    break;
+
+                default:
+                    hideModal();
+                    break;
+            }
+            $("#modalHeader").html(modalHeaderValue);
+            $("#modalDiv").toggle("slow");
+            $("#blanket").toggle("slow");
+        }
+
+        $(document).ready(function () {
+
+            <?php
+            if (isset($displayModal)) {
+
+                if ($displayModal == 'SIGNIN') {
+                    echo 'showModal("signInAnchor");';
+                } elseif ($displayModal == 'REGISTER') {
+                    echo 'showModal("registerAnchor");';
+                } else;
+
+            }
+            ?>
+
+        });
+
+
+    </script>
+
 </head>
 
 <body>
@@ -52,6 +109,12 @@
                 <button type="button" class="close" onclick="hideModal()">&times;</button>
             </div>
             <div class="modal-body">
+                <?php
+                if (!empty($invalidPasswordEmailError)) {
+                    echo $invalidPasswordEmailError;
+                    unset($invalidPasswordEmailError);
+                }
+                ?>
                 <form id="modalForm" method="post" action="./userController.php">
 
                     <div class="form-group row" id="hiddenInputValues" style="display: none;">
@@ -88,7 +151,8 @@
                         <div class="col-sm-9">
                             <input type="tel" maxlength="13" class="form-control" name="PHONE_NUMBER"
                                    id="inputPhoneNumber"
-                                   pattern="[+]{0,1}[0-9]{10,13}" placeholder="Phone number" minlength="10" title="Only Numbers allowed"/>
+                                   pattern="[+]{0,1}[0-9]{10,13}" placeholder="Phone number" minlength="10"
+                                   title="Only Numbers allowed"/>
                         </div>
                     </div>
 

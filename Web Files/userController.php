@@ -21,10 +21,15 @@ if($_POST['PAGE']=='HOME'){
 
     if($_POST['COMMAND']=='SIGNIN'){
 
-        if(userExistsInDB($emailEntered)){
-            //go to signed in page
+        if(checkEmailPassword($emailEntered,$passwordEntered)){
+
+            //include ();
+
         }else{
-            //go back to home page and show error
+            $displayModal = 'SIGNIN';
+            $invalidPasswordEmailError = "<p class = 'alert-danger' style='text-align: center;'>Invalid Email - Password combination entered</p>";
+            include ("./home.php");
+
         }
     }
     elseif ($_POST['COMMAND'] == 'REGISTER'){
@@ -36,13 +41,15 @@ if($_POST['PAGE']=='HOME'){
             $username = $_POST['USERNAME'];
             $phone_number = $_POST['PHONE_NUMBER'];
 
-            addUserInDB($username,$emailEntered,$passwordEntered,$phone_number);
+            if (addUserInDB($username,$emailEntered,$passwordEntered,$phone_number)){
 
+            }else{
+                $displayModal = 'REGISTER';
+                $invalidPasswordEmailError = "<p class = 'alert-danger'>Failed to register, Please try again</p>";
+                include ("./home.php");
+            }
         }
-
     }
-
-
 
 }elseif ($_POST['PAGE']=='MAIN'){
 

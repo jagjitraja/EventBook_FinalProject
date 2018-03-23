@@ -6,7 +6,11 @@
  * Time: 5:43 PM
  */
 
-$db_conn = mysqli_connect('localhost','jbilkhuw7','jbilkhuw7424','COMP3540_jbilkhu');
+$db_conn = mysqli_connect(
+    'localhost',
+    'jbilkhuw7',
+    'jbilkhuw7424',
+    'COMP3540_jbilkhu');
 
 
 function checkConnection(){
@@ -49,10 +53,9 @@ function addUserInDB($username,$email,$password,$phone){
 function checkEmailPassword($email,$password){
 
     global $db_conn;
-    $sql = "SELECT FROM EventBook_Users WHERE USER_EMAIL = '$email' AND USER_PASSWORD = '$password'";
+    $sql = "SELECT * FROM EventBook_Users WHERE (USER_EMAIL = '$email' AND USER_PASSWORD = '$password')";
 
     $result = mysqli_query($db_conn,$sql);
-
     if(mysqli_num_rows($result)>0){
         return $result;
     }else{
