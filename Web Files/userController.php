@@ -27,7 +27,7 @@ if($_POST['PAGE']=='HOME'){
 
         }else{
             $displayModal = 'SIGNIN';
-            $invalidPasswordEmailError = "<p class = 'alert-danger' style='text-align: center;'>Invalid Email - Password combination entered</p>";
+            $invalidPasswordEmailError = "<h6 class = 'alert-danger'>Invalid Email - Password combination entered</h6>";
             include ("./home.php");
 
         }
