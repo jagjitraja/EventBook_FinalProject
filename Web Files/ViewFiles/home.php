@@ -74,7 +74,7 @@
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:0">
-    <a class="navbar-brand" href="./home.php">EventBook</a>
+    <a class="navbar-brand" href="home.php">EventBook</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#myNavBar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -115,7 +115,7 @@
                     unset($invalidPasswordEmailError);
                 }
                 ?>
-                <form id="modalForm" method="post" action="./userController.php">
+                <form id="modalForm" method="post" action="../userController.php">
 
                     <div class="form-group row" id="hiddenInputValues" style="display: none;">
                         <input type="hidden" name="PAGE" value="HOME"/>

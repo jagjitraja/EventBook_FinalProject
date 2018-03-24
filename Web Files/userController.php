@@ -28,7 +28,7 @@ if($_POST['PAGE']=='HOME'){
         }else{
             $displayModal = 'SIGNIN';
             $invalidPasswordEmailError = "<h6 class = 'alert-danger'>Invalid Email - Password combination entered</h6>";
-            include ("./home.php");
+            include("./home.php");
 
         }
     }
@@ -46,7 +46,7 @@ if($_POST['PAGE']=='HOME'){
             }else{
                 $displayModal = 'REGISTER';
                 $invalidPasswordEmailError = "<p class = 'alert-danger'>Failed to register, Please try again</p>";
-                include ("./home.php");
+                include("./home.php");
             }
         }
     }
