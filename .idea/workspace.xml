@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="726e55f9-dbb3-4330-9a28-9fab7da571c7" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/Web Files/ViewFiles/index_signedin.php" />
-      <change beforePath="$PROJECT_DIR$/Web Files/View_Styles_And_JS/homeFunctions.js" afterPath="$PROJECT_DIR$/Web Files/ViewFiles/View_Styles_And_JS/homeFunctions.js" />
-      <change beforePath="$PROJECT_DIR$/Web Files/View_Styles_And_JS/homeStyles.css" afterPath="$PROJECT_DIR$/Web Files/ViewFiles/View_Styles_And_JS/homeStyles.css" />
-      <change beforePath="$PROJECT_DIR$/Web Files/home.php" afterPath="$PROJECT_DIR$/Web Files/ViewFiles/home.php" />
-      <change beforePath="$PROJECT_DIR$/Web Files/userController.php" afterPath="$PROJECT_DIR$/Web Files/userController.php" />
-    </list>
+    <list default="true" id="726e55f9-dbb3-4330-9a28-9fab7da571c7" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,21 +11,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="userController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="userController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Web Files/userController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+            <state relative-caret-position="182">
+              <caret line="25" column="25" lean-forward="true" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index_signedin.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index_signedin.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Web Files/ViewFiles/index_signedin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+            <state relative-caret-position="85">
+              <caret line="10" column="2" lean-forward="false" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -40,13 +34,9 @@
       <file leaf-file-name="model.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Web Files/ModelFiles/model.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
+            <state relative-caret-position="561">
               <caret line="38" column="9" lean-forward="false" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
-              <folding>
-                <marker date="1521933886782" expanded="true" signature="432:503" ph="SELECT * FRO... EventBook_Users" />
-                <marker date="1521933886782" expanded="true" signature="746:894" ph="INSERT INTO EventBook_Users... " />
-                <marker date="1521933886782" expanded="true" signature="1126:1217" ph="SELECT * FRO... EventBook_Users" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -75,11 +65,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1296" />
-    <option name="height" value="776" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-7" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -97,7 +86,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -116,10 +104,18 @@
               <item name="Web Files" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="ViewFiles" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
+            <path>
+              <item name="EventBook_FinalProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="EventBook_FinalProject" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Web Files" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="ViewFiles" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="View_Styles_And_JS" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -160,17 +156,17 @@
       <updated>1521824283750</updated>
       <workItem from="1521824284892" duration="4398000" />
       <workItem from="1521935022791" duration="819000" />
+      <workItem from="1522092410540" duration="104000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5217000" />
+    <option name="totallyTimeSpent" value="5321000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="776" extended-state="6" />
-    <editor active="true" />
+    <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19609375" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39248434" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -203,11 +199,34 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Web Files/userController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Web Files/ModelFiles/model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="38" column="9" lean-forward="false" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Web Files/ViewFiles/index_signedin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Web Files/ViewFiles/home.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -223,11 +242,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
           <caret line="38" column="9" lean-forward="false" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
-          <folding>
-            <marker date="1521933886782" expanded="true" signature="432:503" ph="SELECT * FRO... EventBook_Users" />
-            <marker date="1521933886782" expanded="true" signature="746:894" ph="INSERT INTO EventBook_Users... " />
-            <marker date="1521933886782" expanded="true" signature="1126:1217" ph="SELECT * FRO... EventBook_Users" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -235,7 +250,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -243,7 +257,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" column="11" lean-forward="false" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -258,7 +271,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1938">
           <caret line="114" column="54" lean-forward="false" selection-start-line="114" selection-start-column="54" selection-end-line="114" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -266,34 +278,29 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="21" column="14" lean-forward="false" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Web Files/ModelFiles/model.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
+        <state relative-caret-position="561">
           <caret line="38" column="9" lean-forward="false" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
-          <folding>
-            <marker date="1521933886782" expanded="true" signature="432:503" ph="SELECT * FRO... EventBook_Users" />
-            <marker date="1521933886782" expanded="true" signature="746:894" ph="INSERT INTO EventBook_Users... " />
-            <marker date="1521933886782" expanded="true" signature="1126:1217" ph="SELECT * FRO... EventBook_Users" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Web Files/userController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Web Files/ViewFiles/index_signedin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        <state relative-caret-position="85">
+          <caret line="10" column="2" lean-forward="false" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Web Files/userController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="25" column="25" lean-forward="true" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
           <folding />
         </state>
       </provider>

@@ -7,7 +7,7 @@
  */
 //TODO: CONTROL ALSO IF USER COMES BACK WITH SESSION
 if (empty($_POST['PAGE'])) {
-    include("home.php");
+    include("./home.php");
     exit();
 }
 
@@ -27,7 +27,7 @@ if($_POST['PAGE']=='HOME'){
 
         }else{
             $displayModal = 'SIGNIN';
-            $invalidPasswordEmailError = "<h6 class = 'alert-danger'>Invalid Email - Password combination entered</h6>";
+            $invalidPasswordEmailError = "<h6 id='error' class = 'alert-danger'>Invalid Email - Password combination entered</h6>";
             include("./home.php");
 
         }

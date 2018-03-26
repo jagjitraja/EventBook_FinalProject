@@ -11,8 +11,8 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="View_Styles_And_JS/homeStyles.css"/>
-    <script src="View_Styles_And_JS/homeFunctions.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="./View_Styles_And_JS/homeStyles.css"/>
+    <script src="./View_Styles_And_JS/homeFunctions.js" type="application/javascript"></script>
 
 
     <script>
@@ -112,10 +112,10 @@
                 <?php
                 if (!empty($invalidPasswordEmailError)) {
                     echo $invalidPasswordEmailError;
-                    unset($invalidPasswordEmailError);
+                    $invalidPasswordEmailError = "";
                 }
                 ?>
-                <form id="modalForm" method="post" action="../userController.php">
+                <form id="modalForm" method="post" action="userController.php">
 
                     <div class="form-group row" id="hiddenInputValues" style="display: none;">
                         <input type="hidden" name="PAGE" value="HOME"/>
