@@ -26,7 +26,7 @@ function userExistsInDB($email){
     global $db_conn;
 
     if(checkConnection()) {
-        $sql = 'SELECT * FROM EventBook_Users WHERE UPPER("$email") = UPPER(USER_EMAIL)';
+        $sql = "SELECT * FROM EventBook_Users WHERE UPPER('$email') = UPPER(USER_EMAIL)";
         $result = mysqli_query($db_conn,$sql);
 
         if(mysqli_num_rows($result)>1){
@@ -36,13 +36,12 @@ function userExistsInDB($email){
     return false;
 }
 
-function addUserInDB($username,$email,$password,$phone){
+function addUserInDB($username,$email,$password,$phone,$city,$state){
     global $db_conn;
-    $sql = 'INSERT INTO EventBook_Users(USER_NAME, USER_EMAIL, USER_PHONE_NUMBER, USER_PASSWORD) 
-            VALUES ("$username","$email","$phone","$password")';
+    $sql = "INSERT INTO EventBook_Users (User_ID,USER_NAME, USER_EMAIL, USER_PHONE_NUMBER, USER_PASSWORD, USER_CITY, USER_STATE) 
+            VALUES (NULL,'$username','$email','$phone','$password','$city','$state')";
 
     if(!userExistsInDB($email)){
-
         $result = mysqli_query($db_conn,$sql);
         return $result;
     }else{

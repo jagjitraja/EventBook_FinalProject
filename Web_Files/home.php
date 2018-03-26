@@ -131,7 +131,7 @@
 <!--MODALS-->
 <div class="modal" id="modalDiv" role="dialog">
 
-    <div class="modal-dialog modal-dialog-centered" >
+         <div class="modal-dialog modal-dialog-centered" >
         <!-- Modal content-->
         <div class="modal-content" style="overflow-y: auto; max-height: 500px;">
             <div class="modal-header">
@@ -169,9 +169,9 @@
                         <div class="col-sm-9">
                             <input type="password" class="form-control" name="PASSWORD" id="inputPassword"
                                    placeholder="Password" minlength="8" maxlength="30"
-                                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
                                    title="Please enter atleast one number, one lowercase character and one uppercase character"
                                    required=""/>
+                            <!--pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"-->
                         </div>
                     </div>
 

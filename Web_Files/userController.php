@@ -17,11 +17,11 @@ require ("./ModelFiles/model.php");
 
 if($_POST['PAGE']=='HOME'){
 
-    $emailEntered = $_POST['EMAIL'];
-    $passwordEntered = $_POST['PASSWORD'];
-
 
     if($_POST['COMMAND']=='SIGNIN'){
+
+        $emailEntered = $_POST['EMAIL'];
+        $passwordEntered = $_POST['PASSWORD'];
 
         if(checkEmailPassword($emailEntered,$passwordEntered)){
             session_start();
@@ -32,34 +32,37 @@ if($_POST['PAGE']=='HOME'){
         }else{
             $displayModal = 'SIGNIN';
             $invalidPasswordEmailError = "<h6 id='error' class = 'alert-danger'>Invalid Email - Password combination entered</h6>";
-
             include("./home.php");
+            exit();
 
         }
     }
     elseif ($_POST['COMMAND'] == 'REGISTER'){
         //check validity and sign in
+        $username = $_POST['USERNAME'];
+        $phone_number = $_POST['PHONE_NUMBER'];
+        $user_city = $_POST['CITY'];
+        $user_state = $_POST['STATE'];
+        $emailEntered = $_POST['EMAIL'];
+        $passwordEntered = $_POST['PASSWORD'];
 
         if(userExistsInDB($emailEntered)){
-            //go to home page, show error and prompt to sign in
+            $displayModal = 'SIGNIN';
+            $invalidPasswordEmailError = "<h6 class = 'alert-danger'>Email exists, try signing in</h6>";
+            include("./home.php");
+
+        }elseif (addUserInDB($username,$emailEntered,$passwordEntered,$phone_number,$user_city,$user_state)){
+            session_start();
+            $_SESSION['user'] = $emailEntered;
+            $_SESSION['LOGGED_IN'] = 'YES';
+            setcookie("email",$emailEntered,time()+86400);
+            include ("./logged_in.php");
         }else{
-            $username = $_POST['USERNAME'];
-            $phone_number = $_POST['PHONE_NUMBER'];
-
-            if (addUserInDB($username,$emailEntered,$passwordEntered,$phone_number)){
-                session_start();
-                $_SESSION['user'] = $emailEntered;
-                $_SESSION['LOGGED_IN'] = 'YES';
-                setcookie("email",$emailEntered,time()+86400);
-                include ("./logged_in.php");
-
-            }else{
-                $displayModal = 'REGISTER';
-                $invalidPasswordEmailError = "<p class = 'alert-danger'>Failed to register, Please try again</p>";
-
-                include("./home.php");
-            }
+            $displayModal = 'REGISTER';
+            $invalidPasswordEmailError = "<h6 class = 'alert-danger'>Failed to register, Please try again</h6>";
+            include("./home.php");
         }
+
     }
 
 }elseif ($_POST['PAGE']=='MAIN'){

@@ -36,7 +36,7 @@
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search Events">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search Events"/>
             <button class="btn btn-success my-2 my-sm-0"><span class="glyphicon glyphicon-search"></span>Search</button>
         </form>
     </div>
