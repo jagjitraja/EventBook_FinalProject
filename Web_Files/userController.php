@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: T00533766
@@ -8,6 +9,7 @@
 //TODO: CONTROL ALSO IF USER COMES BACK WITH SESSION
 if (empty($_POST['PAGE'])) {
     include("./home.php");
+    $displayModal = 'NO_MODAL';
     exit();
 }
 
@@ -24,10 +26,10 @@ if($_POST['PAGE']=='HOME'){
         if(checkEmailPassword($emailEntered,$passwordEntered)){
 
             //include ();
-
         }else{
             $displayModal = 'SIGNIN';
             $invalidPasswordEmailError = "<h6 id='error' class = 'alert-danger'>Invalid Email - Password combination entered</h6>";
+
             include("./home.php");
 
         }
@@ -46,6 +48,7 @@ if($_POST['PAGE']=='HOME'){
             }else{
                 $displayModal = 'REGISTER';
                 $invalidPasswordEmailError = "<p class = 'alert-danger'>Failed to register, Please try again</p>";
+
                 include("./home.php");
             }
         }

@@ -16,6 +16,13 @@
 
 
     <script>
+        function hideModal() {
+            $("#modalForm").trigger('reset');
+            $("#blanket").hide("slow");
+            $("#modalDiv").hide("slow");
+            $("#error").html("");
+            $("#error").hide();
+        }
 
         function showModal(e) {
             var modalHeaderValue = "";
@@ -55,13 +62,12 @@
 
             <?php
             if (isset($displayModal)) {
-
                 if ($displayModal == 'SIGNIN') {
                     echo 'showModal("signInAnchor");';
                 } elseif ($displayModal == 'REGISTER') {
                     echo 'showModal("registerAnchor");';
-                } else;
-
+                } else
+                    echo 'hideModal();';
             }
             ?>
 
@@ -112,7 +118,6 @@
                 <?php
                 if (!empty($invalidPasswordEmailError)) {
                     echo $invalidPasswordEmailError;
-                    $invalidPasswordEmailError = "";
                 }
                 ?>
                 <form id="modalForm" method="post" action="userController.php">

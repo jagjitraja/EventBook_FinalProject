@@ -1,13 +1,5 @@
 var submitMode = 1;
 
-function hideModal() {
-    $("#modalForm").trigger('reset');
-    $("#blanket").hide("slow");
-    $("#modalDiv").hide("slow");
-}
-
-
-
 $("#modalForm").on('submit', function () {
 
     switch (submitMode) {
