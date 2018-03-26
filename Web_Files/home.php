@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
@@ -31,6 +31,8 @@
                     modalHeaderValue = "Sign In";
                     $("#userNameRow").hide();
                     $("#phoneRow").hide();
+                    $("#cityRow").hide();
+                    $("#stateRow").hide();
                     $("#submitButton").html("SignIn");
                     $("#inputPassword").prop('required', true);
                     $("#inputEmail").prop('required', true);
@@ -46,6 +48,10 @@
                     $("#inputPhoneNumber").prop('required', true);
                     $("#inputPassword").prop('required', true);
                     $("#inputUserName").prop('required', true);
+                    $("#cityRow").show();
+                    $("#stateRow").show();
+                    $("#city").prop('required', true);
+                    $("#state").prop('required', true);
                     submitMode = 2;
                     break;
 
@@ -71,7 +77,25 @@
             }
             ?>
 
+            $("#modalForm").on('submit', function () {
+                switch (submitMode) {
+                    case 1:
+                        $("#commandInput").val("SIGNIN");
+                        $("#modalForm").submit();
+                        checkFormValues();
+                        break;
+                    case 2:
+                        $("#commandInput").val("REGISTER");
+                        $("#modalForm").submit();
+                        break;
+                    default:
+                        alert("SSSS");
+                        break;
+                }
+            });
+
         });
+
 
 
     </script>
@@ -96,7 +120,7 @@
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search Events">
-            <button class="btn btn-success my-2 my-sm-0" type="button">Search</button>
+            <button class="btn btn-success my-2 my-sm-0"><span class="glyphicon glyphicon-search"></span>Search</button>
         </form>
     </div>
 
@@ -107,14 +131,14 @@
 <!--MODALS-->
 <div class="modal" id="modalDiv" role="dialog">
 
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered" >
         <!-- Modal content-->
-        <div class="modal-content">
+        <div class="modal-content" style="overflow-y: auto; max-height: 500px;">
             <div class="modal-header">
                 <h4 class="modal-title" id="modalHeader"></h4>
                 <button type="button" class="close" onclick="hideModal()">&times;</button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" >
                 <?php
                 if (!empty($invalidPasswordEmailError)) {
                     echo $invalidPasswordEmailError;
@@ -152,14 +176,43 @@
                     </div>
 
                     <div class="form-group row" id="phoneRow">
-                        <label for="inputPhoneNumber" class="col-sm-3 col-form-label">Phone Number:</label>
-                        <div class="col-sm-9">
+                        <label for="inputPhoneNumber" class="col-sm-4 col-form-label">Phone Number:</label>
+                        <div class="col-sm-8">
                             <input type="tel" maxlength="13" class="form-control" name="PHONE_NUMBER"
                                    id="inputPhoneNumber"
                                    pattern="[+]{0,1}[0-9]{10,13}" placeholder="Phone number" minlength="10"
                                    title="Only Numbers allowed"/>
                         </div>
                     </div>
+
+                    <div class="form-group row" id="cityRow" style=" = display: none;">
+                        <label for="city" class="col-sm-3 col-form-label">City: </label>
+                        <div class="col-sm-9">
+                            <input type="text" maxlength="25" class="form-control" name="CITY"
+                                   id="city" placeholder="City"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="stateRow" style="display: none;">
+                        <label for="state" class="col-sm-8 col-form-label">State:</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" name="STATE" id="state" >
+                                <option>AB</option>
+                                <option>BC</option>
+                                <option>MN</option>
+                                <option>NB</option>
+                                <option>NF</option>
+                                <option>NS</option>
+                                <option>ON</option>
+                                <option>PE</option>
+                                <option>QB</option>
+                                <option>SK</option>
+                                <option>NU</option>
+                                <option>YU</option>
+                            </select>
+                        </div>
+                    </div>
+
 
                     <div class="modal-footer">
                         <button id="submitButton" type="submit" class="btn btn-success" value="Submit">Submit</button>

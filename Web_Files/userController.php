@@ -24,8 +24,11 @@ if($_POST['PAGE']=='HOME'){
     if($_POST['COMMAND']=='SIGNIN'){
 
         if(checkEmailPassword($emailEntered,$passwordEntered)){
-
-            //include ();
+            session_start();
+            $_SESSION['user'] = $emailEntered;
+            $_SESSION['LOGGED_IN'] = 'YES';
+            setcookie("email",$emailEntered,time()+86400);
+            include ("./logged_in.php");
         }else{
             $displayModal = 'SIGNIN';
             $invalidPasswordEmailError = "<h6 id='error' class = 'alert-danger'>Invalid Email - Password combination entered</h6>";
@@ -44,6 +47,11 @@ if($_POST['PAGE']=='HOME'){
             $phone_number = $_POST['PHONE_NUMBER'];
 
             if (addUserInDB($username,$emailEntered,$passwordEntered,$phone_number)){
+                session_start();
+                $_SESSION['user'] = $emailEntered;
+                $_SESSION['LOGGED_IN'] = 'YES';
+                setcookie("email",$emailEntered,time()+86400);
+                include ("./logged_in.php");
 
             }else{
                 $displayModal = 'REGISTER';
@@ -56,6 +64,10 @@ if($_POST['PAGE']=='HOME'){
 
 }elseif ($_POST['PAGE']=='MAIN'){
 
+}else{
+    session_unset();
+    session_destroy();
+    include "home.php";
 }
 
 ?>

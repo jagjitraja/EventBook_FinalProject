@@ -38,8 +38,8 @@ a{
 #modalDiv{
     opacity: 1;
     position: relative;
-    max-width: 50%;
-    max-height: 50%;
+    width: 50%;
+    height: 700px;
     top: calc(50vh - 35%);
     left: calc(50vw - 25%);
     z-index: 1001;
