@@ -36,7 +36,7 @@
                 <a class="nav-link" id="myProfile" onclick="showModal(this.id)">My Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="myProfile" onclick="showModal(this.id)">Logout</a>
+                <a class="nav-link" id="myProfile" onclick="$('#signOutForm').submit()">Logout</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -47,14 +47,12 @@
 
 </nav>
 <div id="postEventOptions">
-    <div class="nav flex-column nav-pills col-md-12 bg-primary">
-        <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <li><a class="nav-link" id="list-questions" data-toggle="modal"
-                   data-target="#modalPostEvent">Post New Event</a></li>
+    <div class="col-sm-12">
+        <ul class="nav flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <li class="nav-item bg-danger text-light"><a class="nav-link" id="list-questions" data-toggle="modal" data-target="#modalPostEvent">Post New Event</a></li>
         </ul>
     </div>
 </div>
-
 
 <!-- The Modal -->
 <div class="modal fade" id="modalPostEvent">
@@ -195,8 +193,13 @@
             </div>
         </div>
     </div>
-
 </div>
+
+
+<form id="signOutForm" style="display: none" action="userController.php" method="post">
+    <input type="hidden" name="PAGE" value="LOGGED_IN"/>
+    <input type="hidden" name="COMMAND" value="SIGN_OUT"/>
+</form>
 
 </body>
 </html>

@@ -36,6 +36,14 @@
                     $("#submitButton").html("SignIn");
                     $("#inputPassword").prop('required', true);
                     $("#inputEmail").prop('required', true);
+
+
+                    $("#inputPassword").prop('required', false);
+                    $("#inputUserName").prop('required', false);
+                    $("#city").prop('required', false);
+                    $("#state").prop('required', false);
+                    $("#inputPhoneNumber").prop('required', false);
+
                     submitMode = 1;
                     break;
 
@@ -56,6 +64,13 @@
                     break;
 
                 default:
+
+                    $("#inputPassword").prop('required', false);
+                    $("#inputUserName").prop('required', false);
+                    $("#city").prop('required', false);
+                    $("#state").prop('required', false);
+                    $("#inputPhoneNumber").prop('required', false);
+
                     modalHeaderValue = "Sign In";
                     $("#userNameRow").hide();
                     $("#phoneRow").hide();
@@ -138,10 +153,13 @@
 </div>
 
 
-<?php
-//side nav
-include "navBar.php";
-?>>
+<div id="postEventOptions">
+    <div class="col-sm-12">
+        <ul class="nav flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <li class="nav-item bg-danger text-light"><a class="nav-link" id="list-questions" onclick="showModal()">Post New Event</a></li>
+        </ul>
+    </div>
+</div>
 
 <!--MODALS-->
 <div class="modal" id="modalDiv" role="dialog">

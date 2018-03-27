@@ -68,9 +68,26 @@ if($_POST['PAGE']=='HOME'){
 
 }elseif ($_POST['PAGE']=='LOGGED_IN'){
 
+
+    echo 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+    $command = $_POST['COMMAND'];
+
+    switch ($command){
+        case 'SIGN_OUT':
+            signOut();
+            break;
+    }
+
     include "eventController.php";
 
 }else{
+    session_unset();
+    session_destroy();
+    include "home.php";
+}
+
+
+function signOut(){
     session_unset();
     session_destroy();
     include "home.php";
