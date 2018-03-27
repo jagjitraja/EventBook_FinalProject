@@ -45,3 +45,20 @@ a{
     z-index: 1001;
     margin: 0;
 }
+
+#eventScrollList{
+    background: white;
+    width: 750px;
+}
+
+#eventBody{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#eventLocation, #eventDate{
+    display: inline-block;
+}
+#eventDate, #registerButton{
+    float: right;
+}

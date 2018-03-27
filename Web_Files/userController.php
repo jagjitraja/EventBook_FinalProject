@@ -62,7 +62,6 @@ if($_POST['PAGE']=='HOME'){
             $invalidPasswordEmailError = "<h6 class = 'alert-danger'>Failed to register, Please try again</h6>";
             include("./home.php");
         }
-
     }
 
 }elseif ($_POST['PAGE']=='MAIN'){
