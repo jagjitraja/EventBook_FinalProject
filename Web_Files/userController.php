@@ -19,7 +19,6 @@ if($_POST['PAGE']=='HOME'){
 
 
     if($_POST['COMMAND']=='SIGNIN'){
-
         $emailEntered = $_POST['EMAIL'];
         $passwordEntered = $_POST['PASSWORD'];
 
@@ -29,15 +28,13 @@ if($_POST['PAGE']=='HOME'){
             $_SESSION['LOGGED_IN'] = 'YES';
             setcookie("email",$emailEntered,time()+86400);
             include ("./logged_in.php");
-
             $userData = getUserData($emailEntered,$passwordEntered);
-
+            $_SESSION['USER_INFO'] = $userData;
         }else{
             $displayModal = 'SIGNIN';
             $invalidPasswordEmailError = "<h6 id='error' class = 'alert-danger'>Invalid Email - Password combination entered</h6>";
             include("./home.php");
             exit();
-
         }
     }
     elseif ($_POST['COMMAND'] == 'REGISTER'){
@@ -59,6 +56,8 @@ if($_POST['PAGE']=='HOME'){
             $_SESSION['user'] = $emailEntered;
             $_SESSION['LOGGED_IN'] = 'YES';
             setcookie("email",$emailEntered,time()+86400);
+            $userData = getUserData($emailEntered,$passwordEntered);
+            $_SESSION['USER_INFO'] = $userData;
             include ("./logged_in.php");
         }else{
             $displayModal = 'REGISTER';
@@ -67,7 +66,9 @@ if($_POST['PAGE']=='HOME'){
         }
     }
 
-}elseif ($_POST['PAGE']=='MAIN'){
+}elseif ($_POST['PAGE']=='LOGGED_IN'){
+
+    include "eventController.php";
 
 }else{
     session_unset();

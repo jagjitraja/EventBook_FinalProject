@@ -137,14 +137,11 @@
 <div id="blanket" onclick="hideModal()">
 </div>
 
-<div id="postEventOptions">
-    <div class="nav flex-column nav-pills col-md-12 bg-primary">
-        <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <li><a class="nav-link" id="list-questions" onclick="showModal()">Post New Event</a></li>
-        </ul>
-    </div>
-</div>
 
+<?php
+//side nav
+include "navBar.php";
+?>>
 
 <!--MODALS-->
 <div class="modal" id="modalDiv" role="dialog">
@@ -232,7 +229,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button id="submitButton" type="submit" onclick="$('#modalForm').submit()" class="btn btn-success" value="Submit">Submit</button>
+                        <button id="submitButton" type="submit" onclick="$('#modalForm').submit();" class="btn btn-success" value="Submit">Submit</button>
                         <button type="button" class="btn btn-danger" onclick="hideModal()" value="Close">Close</button>
                     </div>
                 </form>

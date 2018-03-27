@@ -17,13 +17,6 @@
 
 <body>
 
-<?php
-
-foreach ($_POST as $c){
-    echo $c;
-}
-
-?>
 
 <nav id="navBar" class="navbar navbar-expand-md navbar-light bg-success fixed-top" style="margin:0">
     <a class="navbar-brand" href="home.php">EventBook</a>
@@ -76,7 +69,7 @@ foreach ($_POST as $c){
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="post" action="userController.php">
+                <form method="post" action="./userController.php" id="eventForm">
                     <div class="form-group row" id="hiddenInputValues" style="display: none;">
                         <input type="hidden" name="PAGE" value="LOGGED_IN"/>
                         <input type="hidden" id="commandInput" name="COMMAND" value="POST_EVENT"/>
@@ -111,7 +104,7 @@ foreach ($_POST as $c){
                         <div class="col-sm-8">
                             <input type="number"  class="form-control" name="EVENTPRICE"
                                    id="inputEventPrice"
-                                   placeholder="$###.###"/>
+                                   placeholder="$###.###" required=""/>
                         </div>
                     </div>
 
@@ -119,7 +112,7 @@ foreach ($_POST as $c){
                         <label for="inputEventAddress" class="col-sm-4 col-form-label">Address: </label>
                         <div class="col-sm-8">
                             <input type="text" maxlength="35" class="form-control" name="EVENT_ADDRESS"
-                                   id="inputEventAddress" placeholder="Street Address"/>
+                                   id="inputEventAddress" placeholder="Street Address" required=""/>
                         </div>
                     </div>
 
@@ -127,14 +120,14 @@ foreach ($_POST as $c){
                         <label for="city" class="col-sm-4 col-form-label">City: </label>
                         <div class="col-sm-8">
                             <input type="text" maxlength="25" class="form-control" name="CITY"
-                                   id="city" placeholder="City"/>
+                                   id="city" placeholder="City" required=""/>
                         </div>
                     </div>
 
                     <div class="form-group row" id="stateRow">
                         <label for="state" class="col-sm-4 col-form-label">State:</label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="STATE" id="state">
+                            <select class="form-control" name="STATE" id="state" required="">
                                 <option>AB</option>
                                 <option>BC</option>
                                 <option>MN</option>
@@ -152,7 +145,7 @@ foreach ($_POST as $c){
                     </div>
 
                     <!-- Modal footer -->
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Post</button>
+                    <button type="submit" onclick="$('#eventForm').submit();" class="btn btn-success" data-dismiss="modal">Post</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </form>
             </div>
