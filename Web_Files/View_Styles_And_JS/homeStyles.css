@@ -37,7 +37,7 @@ a{
 
 #modalDiv{
     opacity: 1;
-    position: relative;
+    position: fixed;
     width: 50%;
     height: 700px;
     top: calc(50vh - 35%);
@@ -49,10 +49,12 @@ a{
 #eventScrollList{
     background: white;
     width: 750px;
+    padding:50px;
+    padding-top: 20px;
 }
 
 #eventBody{
-    margin-top: 20px;
+    margin-top: 35px;
     margin-bottom: 10px;
 }
 
@@ -61,4 +63,11 @@ a{
 }
 #eventDate, #registerButton{
     float: right;
+}
+
+#postEventOptions{
+    top: 200px;
+    right: 0;
+    position: fixed;
+    display: block;
 }

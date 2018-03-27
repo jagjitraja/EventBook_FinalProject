@@ -25,10 +25,13 @@ if($_POST['PAGE']=='HOME'){
 
         if(checkEmailPassword($emailEntered,$passwordEntered)){
             session_start();
-            $_SESSION['user'] = $emailEntered;
+            $_SESSION['userEmail'] = $emailEntered;
             $_SESSION['LOGGED_IN'] = 'YES';
             setcookie("email",$emailEntered,time()+86400);
             include ("./logged_in.php");
+
+            $userData = getUserData($emailEntered,$passwordEntered);
+
         }else{
             $displayModal = 'SIGNIN';
             $invalidPasswordEmailError = "<h6 id='error' class = 'alert-danger'>Invalid Email - Password combination entered</h6>";

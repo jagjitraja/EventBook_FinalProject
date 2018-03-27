@@ -56,7 +56,15 @@
                     break;
 
                 default:
-                    hideModal();
+                    modalHeaderValue = "Sign In";
+                    $("#userNameRow").hide();
+                    $("#phoneRow").hide();
+                    $("#cityRow").hide();
+                    $("#stateRow").hide();
+                    $("#submitButton").html("SignIn");
+                    $("#inputPassword").prop('required', true);
+                    $("#inputEmail").prop('required', true);
+                    submitMode = 1;
                     break;
             }
             $("#modalHeader").html(modalHeaderValue);
@@ -103,7 +111,7 @@
 </head>
 
 <body>
-<nav id="navBar" class="navbar navbar-light bg-primary fixed-top" style="margin:0">
+<nav id="navBar" class="navbar navbar-expand-md navbar-light bg-success fixed-top" style="margin:0">
     <a class="navbar-brand" href="home.php">EventBook</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#myNavBar">
         <span class="navbar-toggler-icon"></span>
@@ -120,7 +128,7 @@
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search Events">
-            <button class="btn btn-success my-2 my-sm-0"><span class="glyphicon glyphicon-search"></span>Search</button>
+            <button class="btn btn-dark my-2 my-sm-0"><span class="glyphicon glyphicon-search"></span>Search</button>
         </form>
     </div>
 
@@ -128,6 +136,16 @@
 
 <div id="blanket" onclick="hideModal()">
 </div>
+
+<div id="postEventOptions">
+    <div class="nav flex-column nav-pills col-md-12 bg-primary">
+        <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <li><a class="nav-link" id="list-questions" onclick="showModal()">Post New Event</a></li>
+        </ul>
+    </div>
+</div>
+
+
 <!--MODALS-->
 <div class="modal" id="modalDiv" role="dialog">
 
@@ -158,7 +176,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="EMAIL" class="col-sm-4 col-form-label">Email:</label>
+                        <label for="inputEmail" class="col-sm-4 col-form-label">Email:</label>
                         <div class="col-sm-8">
                             <input type="email" class="form-control" name="EMAIL" id="inputEmail" placeholder="Email"
                                    required=""/>
@@ -231,146 +249,6 @@
     <div class="container" id="eventScrollList">
 
 
-        <div class="card container bg-light" id="eventBody">
-            <div class="card-body" id="eventContent">
-                <h5 class="card-title" id="eventName">Event Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventLocation" style="display: inline-block;">Card subtitle</h6>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventDate" style="display:inline-block; float: right;">Card subtitle</h6>
-                <p class="card-text" id="eventDescription">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link"><button class="btn btn-primary">Save Event</button></a>
-                <a href="#" id="registerButton" class="card-link" style="float: right"><button class="btn btn-warning">Attend Event/ Register</button></a>
-            </div>
-        </div>
-        <div class="card container bg-light" id="eventBody">
-            <div class="card-body" id="eventContent">
-                <h5 class="card-title" id="eventName">Event Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventLocation" style="display: inline-block;">Card subtitle</h6>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventDate" style="display:inline-block; float: right;">Card subtitle</h6>
-                <p class="card-text" id="eventDescription">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link"><button class="btn btn-primary">Save Event</button></a>
-                <a href="#" id="registerButton" class="card-link" style="float: right"><button class="btn btn-warning">Attend Event/ Register</button></a>
-            </div>
-        </div>
-        <div class="card container bg-light" id="eventBody">
-            <div class="card-body" id="eventContent">
-                <h5 class="card-title" id="eventName">Event Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventLocation" style="display: inline-block;">Card subtitle</h6>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventDate" style="display:inline-block; float: right;">Card subtitle</h6>
-                <p class="card-text" id="eventDescription">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link"><button class="btn btn-primary">Save Event</button></a>
-                <a href="#" id="registerButton" class="card-link" style="float: right"><button class="btn btn-warning">Attend Event/ Register</button></a>
-            </div>
-        </div>
-        <div class="card container bg-light" id="eventBody">
-            <div class="card-body" id="eventContent">
-                <h5 class="card-title" id="eventName">Event Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventLocation" style="display: inline-block;">Card subtitle</h6>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventDate" style="display:inline-block; float: right;">Card subtitle</h6>
-                <p class="card-text" id="eventDescription">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link"><button class="btn btn-primary">Save Event</button></a>
-                <a href="#" id="registerButton" class="card-link" style="float: right"><button class="btn btn-warning">Attend Event/ Register</button></a>
-            </div>
-        </div>
-        <div class="card container bg-light" id="eventBody">
-            <div class="card-body" id="eventContent">
-                <h5 class="card-title" id="eventName">Event Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventLocation" style="display: inline-block;">Card subtitle</h6>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventDate" style="display:inline-block; float: right;">Card subtitle</h6>
-                <p class="card-text" id="eventDescription">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link"><button class="btn btn-primary">Save Event</button></a>
-                <a href="#" id="registerButton" class="card-link" style="float: right"><button class="btn btn-warning">Attend Event/ Register</button></a>
-            </div>
-        </div>
-        <div class="card container bg-light" id="eventBody">
-            <div class="card-body" id="eventContent">
-                <h5 class="card-title" id="eventName">Event Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventLocation" style="display: inline-block;">Card subtitle</h6>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventDate" style="display:inline-block; float: right;">Card subtitle</h6>
-                <p class="card-text" id="eventDescription">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link"><button class="btn btn-primary">Save Event</button></a>
-                <a href="#" id="registerButton" class="card-link" style="float: right"><button class="btn btn-warning">Attend Event/ Register</button></a>
-            </div>
-        </div>
-        <div class="card container bg-light" id="eventBody">
-            <div class="card-body" id="eventContent">
-                <h5 class="card-title" id="eventName">Event Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventLocation" style="display: inline-block;">Card subtitle</h6>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventDate" style="display:inline-block; float: right;">Card subtitle</h6>
-                <p class="card-text" id="eventDescription">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link"><button class="btn btn-primary">Save Event</button></a>
-                <a href="#" id="registerButton" class="card-link" style="float: right"><button class="btn btn-warning">Attend Event/ Register</button></a>
-            </div>
-        </div>
-        <div class="card container bg-light" id="eventBody">
-            <div class="card-body" id="eventContent">
-                <h5 class="card-title" id="eventName">Event Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventLocation" style="display: inline-block;">Card subtitle</h6>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventDate" style="display:inline-block; float: right;">Card subtitle</h6>
-                <p class="card-text" id="eventDescription">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link"><button class="btn btn-primary">Save Event</button></a>
-                <a href="#" id="registerButton" class="card-link" style="float: right"><button class="btn btn-warning">Attend Event/ Register</button></a>
-            </div>
-        </div>
-        <div class="card container bg-light" id="eventBody">
-            <div class="card-body" id="eventContent">
-                <h5 class="card-title" id="eventName">Event Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventLocation" style="display: inline-block;">Card subtitle</h6>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventDate" style="display:inline-block; float: right;">Card subtitle</h6>
-                <p class="card-text" id="eventDescription">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link"><button class="btn btn-primary">Save Event</button></a>
-                <a href="#" id="registerButton" class="card-link" style="float: right"><button class="btn btn-warning">Attend Event/ Register</button></a>
-            </div>
-        </div>
-        <div class="card container bg-light" id="eventBody">
-            <div class="card-body" id="eventContent">
-                <h5 class="card-title" id="eventName">Event Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventLocation" style="display: inline-block;">Card subtitle</h6>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventDate" style="display:inline-block; float: right;">Card subtitle</h6>
-                <p class="card-text" id="eventDescription">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link"><button class="btn btn-primary">Save Event</button></a>
-                <a href="#" id="registerButton" class="card-link" style="float: right"><button class="btn btn-warning">Attend Event/ Register</button></a>
-            </div>
-        </div>
-        <div class="card container bg-light" id="eventBody">
-            <div class="card-body" id="eventContent">
-                <h5 class="card-title" id="eventName">Event Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventLocation" style="display: inline-block;">Card subtitle</h6>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventDate" style="display:inline-block; float: right;">Card subtitle</h6>
-                <p class="card-text" id="eventDescription">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link"><button class="btn btn-primary">Save Event</button></a>
-                <a href="#" id="registerButton" class="card-link" style="float: right"><button class="btn btn-warning">Attend Event/ Register</button></a>
-            </div>
-        </div>
-        <div class="card container bg-light" id="eventBody">
-            <div class="card-body" id="eventContent">
-                <h5 class="card-title" id="eventName">Event Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventLocation" style="display: inline-block;">Card subtitle</h6>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventDate" style="display:inline-block; float: right;">Card subtitle</h6>
-                <p class="card-text" id="eventDescription">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link"><button class="btn btn-primary">Save Event</button></a>
-                <a href="#" id="registerButton" class="card-link" style="float: right"><button class="btn btn-warning">Attend Event/ Register</button></a>
-            </div>
-        </div>
-        <div class="card container bg-light" id="eventBody">
-            <div class="card-body" id="eventContent">
-                <h5 class="card-title" id="eventName">Event Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventLocation" style="display: inline-block;">Card subtitle</h6>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventDate" style="display:inline-block; float: right;">Card subtitle</h6>
-                <p class="card-text" id="eventDescription">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link"><button class="btn btn-primary">Save Event</button></a>
-                <a href="#" id="registerButton" class="card-link" style="float: right"><button class="btn btn-warning">Attend Event/ Register</button></a>
-            </div>
-        </div>
-        <div class="card container bg-light" id="eventBody">
-            <div class="card-body" id="eventContent">
-                <h5 class="card-title" id="eventName">Event Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventLocation" style="display: inline-block;">Card subtitle</h6>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventDate" style="display:inline-block; float: right;">Card subtitle</h6>
-                <p class="card-text" id="eventDescription">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link"><button class="btn btn-primary">Save Event</button></a>
-                <a href="#" id="registerButton" class="card-link" style="float: right"><button class="btn btn-warning">Attend Event/ Register</button></a>
-            </div>
-        </div>
         <div class="card container bg-light" id="eventBody">
             <div class="card-body" id="eventContent">
                 <h5 class="card-title" id="eventName">Event Name</h5>

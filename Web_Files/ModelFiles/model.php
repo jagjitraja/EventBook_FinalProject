@@ -62,7 +62,17 @@ function checkEmailPassword($email,$password){
     }
 }
 
+function getUserData($email,$password){
 
+    global $db_conn;
+    $sql = "SELECT * FROM EventBook_Users WHERE UPPER('$email') = UPPER(USER_EMAIL) AND '$password' = USER_PASSWORD";
+    $result = mysqli_query($db_conn, $sql);
+    if(mysqli_num_rows($result)==1) {
+        return $result;
+    }else{
+        return false;
+    }
+}
 //TODO: CHANGE EMAIL, PASSWORD, PHONE AND USER NAME
 //TODO: EVENTS SQL
 
