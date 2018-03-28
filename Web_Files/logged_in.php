@@ -1,19 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-</head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="./View_Styles_And_JS/homeStyles.css"/>
-<script src="./View_Styles_And_JS/homeFunctions.js" type="application/javascript"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="./View_Styles_And_JS/homeStyles.css"/>
+    <script src="./View_Styles_And_JS/homeFunctions.js" type="application/javascript"></script>
+
+
+    <script>
+        $(document).ready(function () {
+
+            $("#submit_post_event").click(function () {
+                alert("ppppp");
+
+                var formInputArray = $("#eventForm").serializeArray();
+                var fieldsValuesArray = [];
+
+                for(var i in formInputArray){
+                    for (var prop in formInputArray[i]){
+                        var inputObject = {};
+                        inputObject[formInputArray[i][name]] = formInputArray[i][value];
+                        alert();
+                    }
+                }
+
+            });
+        });
+    </script>
+</head>
 
 <body>
 
@@ -66,7 +89,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="post" action="./userController.php" id="eventForm">
+                <form id="eventForm">
                     <div class="form-group row" id="hiddenInputValues" style="display: none;">
                         <input type="hidden" name="PAGE" value="LOGGED_IN"/>
                         <input type="hidden" id="commandInput" name="COMMAND" value="POST_EVENT"/>
@@ -76,22 +99,21 @@
                         <label for="inputEventName" class="col-sm-4 col-form-label">Event Name:</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" name="EVENTNAME" maxlength="45" id="inputEventName"
-                                   placeholder="Event Name"/>
+                                   placeholder="Event Name" required/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="EVENT_DESCRIPTION" class="col-sm-4 col-form-label">Event Description:</label>
                         <div class="col-sm-8">
                             <textarea class="form-control" name="EVENTDESCRIPTION" id="inputEventDescription"
-                                   placeholder="......."
-                                      required=""></textarea>
+                                   placeholder="......." required></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputEventDate" class="col-sm-4 col-form-label">Event Date:</label>
                         <div class="col-sm-8">
                             <input type="date" class="form-control" name="EVENTDATE" id="inputEventDate"
-                                   placeholder="DD/MM/YY" required=""/>
+                                   placeholder="DD/MM/YY" required/>
                             <!--pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"-->
                         </div>
                     </div>
@@ -100,8 +122,7 @@
                         <label for="inputEventPrice" class="col-sm-4 col-form-label">Price:</label>
                         <div class="col-sm-8">
                             <input type="number"  class="form-control" name="EVENTPRICE"
-                                   id="inputEventPrice"
-                                   placeholder="$###.###" required=""/>
+                                   id="inputEventPrice" placeholder="$###.###" required/>
                         </div>
                     </div>
 
@@ -109,7 +130,7 @@
                         <label for="inputEventAddress" class="col-sm-4 col-form-label">Address: </label>
                         <div class="col-sm-8">
                             <input type="text" maxlength="35" class="form-control" name="EVENTADDRESS"
-                                   id="inputEventAddress" placeholder="Street Address" required=""/>
+                                   id="inputEventAddress" placeholder="Street Address" required/>
                         </div>
                     </div>
 
@@ -117,14 +138,14 @@
                         <label for="city" class="col-sm-4 col-form-label">City: </label>
                         <div class="col-sm-8">
                             <input type="text" maxlength="25" class="form-control" name="EVENTCITY"
-                                   id="city" placeholder="City" required=""/>
+                                   id="city" placeholder="City" required/>
                         </div>
                     </div>
 
                     <div class="form-group row" id="stateRow">
                         <label for="state" class="col-sm-4 col-form-label">State:</label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="EVENTSTATE" id="state" required="">
+                            <select class="form-control" name="EVENTSTATE" id="state" required>
                                 <option>AB</option>
                                 <option>BC</option>
                                 <option>MN</option>
@@ -142,7 +163,7 @@
                     </div>
 
                     <!-- Modal footer -->
-                    <button type="submit" onclick="$('#eventForm').submit();" class="btn btn-success" data-dismiss="modal">Post</button>
+                    <button type="submit" id="submit_post_event" class="btn btn-success">Post</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </form>
             </div>
@@ -155,7 +176,6 @@
 <div class="container-fluid jumbotron" id="eventScrollBack">
 
     <div class="container" id="eventScrollList">
-
 
         <div class="card container bg-light" id="eventBody">
             <div class="card-body" id="eventContent">

@@ -70,10 +70,12 @@ if($_POST['PAGE']=='HOME'){
 
     session_start();
     $command = $_POST['COMMAND'];
-    $userData = $_SESSION['USER_INFO'];
+    $userData = $_POST['EVENT_DATA'];
 
     if (!isset($_SESSION['LOGGED_IN']) || $_SESSION['LOGGED_IN'] != 'YES') {
         echo 'Session is broken<br>';
+        session_unset();
+        session_destroy();
         exit();
     }
 
@@ -82,21 +84,9 @@ if($_POST['PAGE']=='HOME'){
             signOut();
             break;
         case 'POST_EVENT':
-
+            var_dump($_POST);
             var_dump($userData);
-            $posting_user_id = $userData["User_ID"];
-            $eventName = $_POST['EVENTNAME'];
-            $eventDescription = $_POST['EVENTDESCRIPTION'];
-            $eventDate = $_POST['EVENTDATE'];
-            $eventPrice = $_POST['EVENTPRICE'];
-            $eventAddress = $_POST['EVENTADDRESS'];
-            $eventCity = $_POST['EVENTCITY'];
-            $eventState = $_POST['EVENTSTATE'];
 
-            if(addEvent($posting_user_id, $eventName,$eventDescription,
-                $eventDate,$eventPrice,$eventAddress,$eventCity,$eventState)){
-
-            }
             break;
     }
 
