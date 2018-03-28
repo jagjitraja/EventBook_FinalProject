@@ -64,7 +64,6 @@
                 <h4 class="modal-title">Post New Event</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-
             <!-- Modal body -->
             <div class="modal-body">
                 <form method="post" action="./userController.php" id="eventForm">
@@ -109,7 +108,7 @@
                     <div class="form-group row" id="addressRow">
                         <label for="inputEventAddress" class="col-sm-4 col-form-label">Address: </label>
                         <div class="col-sm-8">
-                            <input type="text" maxlength="35" class="form-control" name="EVENT_ADDRESS"
+                            <input type="text" maxlength="35" class="form-control" name="EVENTADDRESS"
                                    id="inputEventAddress" placeholder="Street Address" required=""/>
                         </div>
                     </div>
@@ -117,7 +116,7 @@
                     <div class="form-group row" id="cityRow">
                         <label for="city" class="col-sm-4 col-form-label">City: </label>
                         <div class="col-sm-8">
-                            <input type="text" maxlength="25" class="form-control" name="CITY"
+                            <input type="text" maxlength="25" class="form-control" name="EVENTCITY"
                                    id="city" placeholder="City" required=""/>
                         </div>
                     </div>
@@ -125,7 +124,7 @@
                     <div class="form-group row" id="stateRow">
                         <label for="state" class="col-sm-4 col-form-label">State:</label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="STATE" id="state" required="">
+                            <select class="form-control" name="EVENTSTATE" id="state" required="">
                                 <option>AB</option>
                                 <option>BC</option>
                                 <option>MN</option>

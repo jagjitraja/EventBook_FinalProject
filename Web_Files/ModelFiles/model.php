@@ -67,14 +67,40 @@ function getUserData($email,$password){
     global $db_conn;
     $sql = "SELECT * FROM EventBook_Users WHERE UPPER('$email') = UPPER(USER_EMAIL) AND '$password' = USER_PASSWORD";
     $result = mysqli_query($db_conn, $sql);
+
     if(mysqli_num_rows($result)==1) {
-        return $result;
+        return mysqli_fetch_assoc($result);
     }else{
         return false;
     }
 }
 //TODO: CHANGE EMAIL, PASSWORD, PHONE AND USER NAME
 //TODO: EVENTS SQL
+
+function addEvent($posing_user_id,$eventName,$eventDescription,$eventDate,
+                  $eventPrice,$eventAddress,$eventCity,$eventState)
+{
+
+    global $db_conn;
+
+    $eventDate = date("Y-m-d", strtotime($eventDate));
+    $currentDate = date('Y-m-d');
+
+    $sql = "INSERT INTO EventBook_Events(Event_ID, Event_Name, Event_Description, Event_Date, Event_Price,
+            Event_Address, Event_Posting_Date, EventBook_Posted_By_UserID, Eevnt_State, Event_City)
+            VALUES (NULL,'$eventName','$eventDescription','$eventDate',
+            '$eventPrice','$eventAddress',
+            '$currentDate','$posing_user_id',
+            '$eventState','$eventCity')";
+    $result = mysqli_query($db_conn, $sql);
+
+    if ($result) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 
 ?>
