@@ -69,8 +69,8 @@ if($_POST['PAGE']=='HOME'){
 }elseif ($_POST['PAGE']=='LOGGED_IN'){
 
     session_start();
+
     $command = $_POST['COMMAND'];
-    $userData = $_POST['EVENT_DATA'];
 
     if (!isset($_SESSION['LOGGED_IN']) || $_SESSION['LOGGED_IN'] != 'YES') {
         echo 'Session is broken<br>';
@@ -78,22 +78,18 @@ if($_POST['PAGE']=='HOME'){
         session_destroy();
         exit();
     }
-
     switch ($command){
         case 'SIGN_OUT':
             signOut();
             break;
-        case 'POST_EVENT':
-            var_dump($_POST);
-            var_dump($userData);
-
+        default:
+            echo "AN ERROR OCCURED";
             break;
     }
 
-
 }else{
-    session_unset();
-    session_destroy();
+    echo "An error occured";
+    signOut();
     include "home.php";
 }
 

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,18 +21,24 @@
         $(document).ready(function () {
 
             $("#submit_post_event").click(function () {
-                alert("ppppp");
 
                 var formInputArray = $("#eventForm").serializeArray();
-                var fieldsValuesArray = [];
+                var fieldsValuesArray = {};
 
-                for(var i in formInputArray){
-                    for (var prop in formInputArray[i]){
-                        var inputObject = {};
-                        inputObject[formInputArray[i][name]] = formInputArray[i][value];
-                        alert();
-                    }
-                }
+                $.each(formInputArray,function (i,field) {
+                    var nam = field.name;
+                    var val = field.value;
+                    fieldsValuesArray[nam] = val;
+                });
+
+
+                var url = "./eventController.php";
+                var query = {EVENT_DATA:fieldsValuesArray};
+
+                $.ajax({url: "./eventController.php", type:"post",data:query,
+                    success: function(result){
+                        console.log(result);
+                    }});
 
             });
         });
@@ -163,7 +170,7 @@
                     </div>
 
                     <!-- Modal footer -->
-                    <button type="submit" id="submit_post_event" class="btn btn-success">Post</button>
+                    <button type="button" id="submit_post_event" class="btn btn-success">Post</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </form>
             </div>
