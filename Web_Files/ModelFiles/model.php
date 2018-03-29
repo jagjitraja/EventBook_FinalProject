@@ -95,7 +95,7 @@ function addEvent($posing_user_id,$eventName,$eventDescription,$eventDate,
     $result = mysqli_query($db_conn, $sql);
 
     if ($result) {
-        return true;
+        return $result;
     } else {
         return false;
     }

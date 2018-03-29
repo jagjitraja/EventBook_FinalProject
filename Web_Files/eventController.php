@@ -2,9 +2,9 @@
 <?php
 
 include "./ModelFiles/model.php";
+require "./Event.php";
+
 session_start();
-var_dump($_POST);
-var_dump($_SESSION);
 
 if (!isset($_SESSION['LOGGED_IN']) || $_SESSION['LOGGED_IN'] != 'YES') {
     echo 'Session is broken<br>';
@@ -13,24 +13,32 @@ if (!isset($_SESSION['LOGGED_IN']) || $_SESSION['LOGGED_IN'] != 'YES') {
     exit();
 }
 
-if ($_POST['PAGE']=='LOGGED_IN'){
+$eventDataArray = $_POST["EVENT_DATA"];
+$postersDataArray = $_SESSION['USER_INFO'];
 
-    $command = $_POST['COMMAND'];
+if ($eventDataArray['PAGE']=='LOGGED_IN'){
+
+    $command = $eventDataArray['COMMAND'];
     switch ($command){
         case 'POST_EVENT':
 
-            $eventName = $_POST['EVENTNAME'];
-            $eventDescription = $_POST['EVENTDESCRIPTION'];
-            $eventDate = $_POST['EVENTDATE'];
-            $eventPrice = $_POST['EVENTPRICE'];
-            $eventAddress = $_POST['EVENTADDRESS'];
-            $eventCity = $_POST['EVENTCITY'];
-            $eventState = $_POST['EVENTSTATE'];
-            $postersID = $_SESSION['User_ID'];
+            $eventName = $eventDataArray['EVENTNAME'];
+            $eventDescription = $eventDataArray['EVENTDESCRIPTION'];
+            $eventDate = $eventDataArray['EVENTDATE'];
+            $eventPrice = $eventDataArray['EVENTPRICE'];
+            $eventAddress = $eventDataArray['EVENTADDRESS'];
+            $eventCity = $eventDataArray['EVENTCITY'];
+            $eventState = $eventDataArray['EVENTSTATE'];
+
+            $postersID = $postersDataArray['User_ID'];
 
             if(addEvent($postersID,$eventName,$eventDescription,$eventDate,$eventPrice,$eventAddress
                     ,$eventCity,$eventState)){
 
+                $postedEvent = new Event($postersID,$eventName,$eventDescription,$eventDate,$eventPrice,$eventAddress
+                    ,$eventCity,$eventState);
+
+                echo $postedEvent->getEventLayoutString();
             }else{
                 return false;
             }
@@ -45,6 +53,7 @@ if ($_POST['PAGE']=='LOGGED_IN'){
     signOut();
     include "home.php";
 }
+
 
 ?>
 
