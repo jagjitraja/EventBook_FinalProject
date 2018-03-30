@@ -72,9 +72,8 @@ if($_POST['PAGE']=='HOME'){
     $command = $_POST['COMMAND'];
 
     if (!isset($_SESSION['LOGGED_IN']) || $_SESSION['LOGGED_IN'] != 'YES') {
-        echo 'Session is broken<br>';
-        session_unset();
-        session_destroy();
+        signOut();
+        include "home.php";
         exit();
     }
     switch ($command){

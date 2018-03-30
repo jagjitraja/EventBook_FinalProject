@@ -43,7 +43,6 @@ if ($eventDataArray['PAGE']=='LOGGED_IN'){
 
                 $postedEvent = new Event($postersID,$eventName,$eventDescription,$eventDate,$eventPrice,$eventAddress
                     ,$eventCity,$eventState);
-
                 //send html formatted String
                 echo $postedEvent->getEventLayoutString();
             }else{

@@ -43,8 +43,8 @@ class Event
             $this->eventDate.'</h6>
                         <p class="card-text" id="eventDescription">'.
             $this->eventDescription.'</p>
-                        <button class="btn btn-primary">Save Event</button></a>
-                        <button class="btn btn-warning" style="float: right">Attend Event/ Register</button>
+                        <button id="saveEvent" class="btn btn-primary">Save Event</button></a>
+                        <button id="attendEvent" class="btn btn-warning" style="float: right">Attend Event/ Register</button>
                    </div>
                 </div>';
 
