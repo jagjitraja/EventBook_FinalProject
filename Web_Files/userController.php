@@ -17,7 +17,6 @@ require ("./ModelFiles/model.php");
 
 if($_POST['PAGE']=='HOME'){
 
-
     if($_POST['COMMAND']=='SIGNIN'){
         $emailEntered = $_POST['EMAIL'];
         $passwordEntered = $_POST['PASSWORD'];

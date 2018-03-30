@@ -87,10 +87,27 @@
             $("#blanket").toggle("slow");
         }
 
+        function getPublicEventsFromDatabase() {
+
+            var query = {PAGE:'HOME',COMMAND:'GET_PUBLIC_EVENTS'};
+
+            $.ajax({url:'eventController.php',type:'post',data:query,
+                    success:function(result){
+                        //console.log(result);
+                        $("#eventScrollList").html('');
+                        $("#eventScrollList").prepend(result);
+                    },
+                    fail:function (XMLHttpRequest, textStatus, error) {
+                        alert("FAILED");
+                    }
+            });
+
+        }
+
         $(document).ready(function () {
 
-            getDeviceLocation();
-
+            //getDeviceLocation();
+            getPublicEventsFromDatabase();
 
             <?php
             if (isset($displayModal)) {
@@ -124,7 +141,6 @@
 
 
         function getDeviceLocation(){
-
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
             } else {
@@ -140,7 +156,7 @@
         function showError(error) {
             switch(error.code) {
                 case error.PERMISSION_DENIED:
-                    alert("User denied the request for Geolocation.");
+                    alert("User denied the request for Geolocation because of HTTP ");
                     break;
                 case error.POSITION_UNAVAILABLE:
                     alert("Location information is unavailable.");
@@ -296,17 +312,6 @@
 
     <div class="container" id="eventScrollList">
 
-
-        <div class="card container bg-light" id="eventBody">
-            <div class="card-body" id="eventContent">
-                <h5 class="card-title" id="eventName">Event Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventLocation" style="display: inline-block;">Card subtitle</h6>
-                <h6 class="card-subtitle mb-2 text-muted" id="eventDate" style="display:inline-block; float: right;">Card subtitle</h6>
-                <p class="card-text" id="eventDescription">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link"><button class="btn btn-primary">Save Event</button></a>
-                <a href="#" id="registerButton" class="card-link" style="float: right"><button class="btn btn-warning">Attend Event/ Register</button></a>
-            </div>
-        </div>
 
     </div>
 </div>

@@ -18,8 +18,30 @@
 
 
     <script>
+        function getAllEvents(command) {
+
+            if ( typeof command === 'undefined'){
+                alert("Please Refresh, an error occured");
+                return;
+            }
+
+            var query = {PAGE:'LOGGED_IN',COMMAND:command};
+            $.ajax({url:'eventController.php',type:'post',data:query,
+                success:function(result){
+                    console.log(result);
+                    $("#eventScrollList").html('');
+                    $("#eventScrollList").prepend(result);
+                },
+                fail:function (XMLHttpRequest, textStatus, error) {
+                    alert("FAILED");
+                }
+            });
+        }
+
+
         $(document).ready(function () {
 
+            getAllEvents('GET_ALL_EVENTS');
 
             $("#submit_post_event").click(function () {
                 var formInputArray = $("#eventForm").serializeArray();
@@ -31,14 +53,15 @@
                     fieldsValuesArray[nam] = val;
                 });
 
-                var url = "./eventController.php";
                 var query = {EVENT_DATA:fieldsValuesArray};
-
                 $.ajax({url: "./eventController.php", type:"post",data:query,
                     success: function(result){
                         $('#eventScrollList').prepend(result);
                         $('#modalPostEvent').modal('toggle');
-                }});
+
+                },  fail:function (XMLHttpRequest, textStatus, error) {
+                        alert("An error occured posting the event. Please try again :(");
+                    }});
             });
         });
     </script>
@@ -48,7 +71,7 @@
 
 
 <nav id="navBar" class="navbar navbar-expand-md navbar-light bg-success fixed-top" style="margin:0">
-    <a class="navbar-brand" href="home.php">EventBook</a>
+    <a class="navbar-brand" onclick="getAllEvents('GET_ALL_EVENTS')" ">EventBook</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#myNavBar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -56,7 +79,7 @@
     <div class="collapse navbar-collapse" id="myNavBar">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" id="postedEvents" onclick="showModal(this.id)">Posted Events</a>
+                <a class="nav-link" id="postedEvents" onclick="getAllEvents('GET_MY_EVENTS')">My Posted Events</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="savedEvents" onclick="showModal(this.id)">Saved Events</a>
@@ -131,6 +154,7 @@
                                    id="inputEventPrice" placeholder="$###.###" required/>
                         </div>
                     </div>
+
 
                     <div class="form-group row" id="addressRow">
                         <label for="inputEventAddress" class="col-sm-4 col-form-label">Address: </label>
