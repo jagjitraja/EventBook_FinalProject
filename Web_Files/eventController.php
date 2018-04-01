@@ -82,6 +82,10 @@ if ($eventDataArray['PAGE']=='LOGGED_IN'){
             $result = getSavedEvents($postersID);
             echo processEvents($result);
             break;
+        case 'SEARCH':
+            $searchResult = searchEvents($_POST['CRITERIA']);
+            echo processEvents($searchResult);
+            break;
 
         default:
             echo "AN ERROR OCCURED";
@@ -94,6 +98,10 @@ if ($eventDataArray['PAGE']=='LOGGED_IN'){
     switch ($command){
         case "GET_PUBLIC_EVENTS":
             echo getUpdatedEvents();
+            break;
+        case 'SEARCH':
+            $searchResult = searchEvents($_POST['CRITERIA']);
+            echo processEvents($searchResult);
             break;
         default:
             break;
@@ -112,7 +120,6 @@ function getUpdatedEvents(){
 }
 
 function processEvents($eventsFromDatabase){
-
     $htmlEventListString = "";
 
     if (count($eventsFromDatabase)===0){
@@ -129,9 +136,10 @@ function processEvents($eventsFromDatabase){
         $eventCity = $event['Event_City'];
         $eventState = $event['Eevnt_State'];
         $postersID = $event['EventBook_Posted_By_UserID'];
+        $postersName = getEventPostersName($postersID)['USER_NAME'];
 
         $eventObject = new Event($eventID,$postersID,$eventName,$eventDescription,$eventDate,$eventPrice,$eventAddress
-            ,$eventCity,$eventState);
+            ,$eventCity,$eventState,$postersName);
 
         $htmlEventListString.=$eventObject->getEventLayoutString();
     }

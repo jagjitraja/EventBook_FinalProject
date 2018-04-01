@@ -34,9 +34,12 @@
             $("#userCity").val(city);
             $("#userState").val(state);
 
-            $("#userForm").submit(function () {
-                if($("#inputPassword").val()===($("#inputPasswordConfirm"))){
+            $("#userForm").submit(function (e) {
+                if($("#inputPassword").val()===($("#inputPasswordConfirm").val())){
                     this.submit();
+                }else{
+                    alert("Both password fields must be equal");
+                    e.preventDefault() ;
                 }
             });
 
@@ -55,7 +58,8 @@
     <div class="collapse navbar-collapse" id="myNavBar">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" id="postedEvents" onclick="$('#goToEvents').submit();" data-target="#myNavBar"data-toggle="collapse" name = "BACK">Back to Events</a>
+                <a class="nav-link" id="postedEvents" onclick="$('#noChangeGoToEvents').submit();"
+                   data-target="#myNavBar"data-toggle="collapse" name = "BACK">Back to Events</a>
             </li>
         </ul>
     </div>
@@ -140,12 +144,12 @@
 
         <!-- Modal footer -->
         <button type="submit" id="submit_user_profile" class="btn btn-success">Update</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button>
+        <button type="button" class="btn btn-danger" onclick="$('#noChangeGoToEvents').submit();"data-dismiss="modal">Exit</button>
     </form>
 
 </div>
 
-<form id="goToEvents" style="display: none" action="userController.php" method="post">
+<form id="noChangeGoToEvents" style="display: none" action="userController.php" method="post">
     <input type="hidden" name="PAGE" value="LOGGED_IN"/>
     <input type="hidden" name="COMMAND" value="EVENTS_NO_CHANGE"/>
 </form>

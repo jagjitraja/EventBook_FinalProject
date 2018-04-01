@@ -68,26 +68,23 @@ a{
 }
 
 #postEventOptions{
-    top: 250px;
-    right: 0;
+    top: 100px;
+    left: 0;
     position: fixed;
     display: block;
+    width: 100%;
+    z-index: 10;
+    text-align: center;
+    background: white;
+    padding: 10px;
+}
+
+#eventScrollBack{
+    margin-top: 200px;
 }
 
 
 
-@media all and (max-width: 1200px) {
-    #postEventOptions{
-        top: 100px;
-        left: 0;
-        position: fixed;
-        display: block;
-        width: 100%;
-        z-index: 10;
-        text-align: center;
-    }
-    #eventScrollBack{
-        margin-top: 200px;
-    }
-
+#searchField{
+    width: auto !important;
 }

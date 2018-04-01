@@ -74,6 +74,26 @@
                 }
             });
         }
+        function search () {
+            var criteria = $("#searchField").val();
+            if (criteria.length>0){
+                var query = {PAGE:'HOME',COMMAND:'SEARCH',CRITERIA:criteria};
+
+                $.ajax({url:'eventController.php',type:'post',data:query,
+                    success:function(result){
+                        $("#eventScrollList").html('');
+                        $("#eventScrollList").append(result);
+
+                        $(".eventButton").click(function () {
+                            showModal("signInAnchor");
+                        });
+                    },
+                    fail:function (XMLHttpRequest, textStatus, error) {
+                        alert("FAILED");
+                    }
+                });
+            }
+        }
 
         $(document).ready(function () {
 
@@ -102,6 +122,7 @@
 
                 $("#eventForm").trigger('reset');
             });
+
         });
 
     </script>
@@ -132,29 +153,16 @@
                 <a class="nav-link" id="myProfile" onclick="$('#signOutForm').submit()">Logout</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search Events"/>
-            <button class="btn btn-dark my-2 my-sm-0"><span class="glyphicon glyphicon-search"></span>Search</button>
-        </form>
+            <input class="form-control " type="text" placeholder="Search Events" id="searchField" onkeydown="search()"/>
+            <button class="btn btn-dark" id="searchButton"type="button"  data-target="#myNavBar" data-toggle="collapse" onclick="search()">Search</button>
     </div>
 </nav>
-<div id="postEventOptions" style="background: white;">
+<div id="postEventOptions">
     <div class="col-sm-12">
         <ul class="nav flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <li class="nav-item bg-danger text-light"><a class="nav-link" id="list-questions"
                                                          data-toggle="modal" data-target="#modalPostEvent">Post New Event</a></li>
         </ul>
-    </div>
-</div>
-
-
-<div class="modal fade" id="resultModal" style="display: none; opacity: 0.85;">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content" style="background: cornflowerblue;color: white;">
-            <div class="modal-header">
-                <h5 class="modal-title" id="resultTitle" style="text-align: center;"></h5>
-            </div>
-        </div>
     </div>
 </div>
 

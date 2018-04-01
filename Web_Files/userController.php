@@ -39,9 +39,9 @@ if ($_POST['PAGE'] == 'HOME') {
     } elseif ($_POST['COMMAND'] == 'REGISTER') {
         //check validity and sign in
         $username = $_POST['USERNAME'];
-        $phone_number = $_POST['PHONE_NUMBER'];
-        $user_city = $_POST['CITY'];
-        $user_state = $_POST['STATE'];
+        $phoneNumber = $_POST['PHONE_NUMBER'];
+        $userCity = $_POST['CITY'];
+        $userState = $_POST['STATE'];
         $emailEntered = $_POST['EMAIL'];
         $passwordEntered = $_POST['PASSWORD'];
 
@@ -50,7 +50,7 @@ if ($_POST['PAGE'] == 'HOME') {
             $invalidPasswordEmailError = "<h6 class = 'alert-danger'>Email exists, try signing in</h6>";
             include("./home.php");
 
-        } elseif (addUserInDB($username, $emailEntered, $passwordEntered, $phone_number, $user_city, $user_state)) {
+        } elseif (addUserInDB($username, $emailEntered, $passwordEntered, $phoneNumber, $userCity, $userState)) {
             session_start();
             $_SESSION['user'] = $emailEntered;
             $_SESSION['LOGGED_IN'] = 'YES';
@@ -85,8 +85,25 @@ if ($_POST['PAGE'] == 'HOME') {
             exit();
             break;
         case 'UPDATE_PROFILE':
-            print_r($_POST);
-            updateUserInfo();
+
+            $username = $_POST['USER_NAME'];
+            $phoneNumber = $_POST['USERPHONE'];
+            $userCity = $_POST['USERCITY'];
+            $userState = $_POST['USERSTATE'];
+            $emailEntered = $_POST['USER_EMAIL'];
+            $passwordEntered = $_POST['PASSWORD'];
+            $userID = $_SESSION['USER_INFO']['User_ID'];
+            var_dump($_SESSION);
+            if(updateUserInfo($userID,$username,$phoneNumber,$emailEntered,$passwordEntered,$userState,$userCity)){
+                echo 'Update Successful :)';
+                $userData = getUserData($emailEntered, $passwordEntered);
+                $_SESSION['userEmail'] = $emailEntered;
+                $_SESSION['USER_INFO'] = $userData;
+                include './logged_in.php';
+            }else{
+                echo 'Update Failed, Signing out :(';
+                signOut();
+            }
             break;
         case 'EVENTS_NO_CHANGE':
             include './logged_in.php';

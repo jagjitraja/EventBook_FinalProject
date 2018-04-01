@@ -108,8 +108,8 @@
         }
 
         $(document).ready(function () {
-
             //getDeviceLocation();
+
             getPublicEventsFromDatabase();
 
             <?php
@@ -139,7 +139,30 @@
                         break;
                 }
             });
+
         });
+
+        function search () {
+            hideModal();
+            var criteria = $("#searchField").val();
+            if (criteria.length>0){
+                var query = {PAGE:'HOME',COMMAND:'SEARCH',CRITERIA:criteria};
+
+                $.ajax({url:'eventController.php',type:'post',data:query,
+                    success:function(result){
+                        $("#eventScrollList").html('');
+                        $("#eventScrollList").append(result);
+
+                        $(".eventButton").click(function () {
+                            showModal("signInAnchor");
+                        });
+                    },
+                    fail:function (XMLHttpRequest, textStatus, error) {
+                        alert("FAILED");
+                    }
+                });
+            }
+        }
 
         function getDeviceLocation(){
             if (navigator.geolocation) {
@@ -171,6 +194,8 @@
             }
         }
 
+
+
     </script>
 
 </head>
@@ -191,12 +216,10 @@
                 <a class="nav-link" id="registerAnchor" onclick="showModal(this.id)">Register</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search Events">
-            <button class="btn btn-dark my-2 my-sm-0"><span class="glyphicon glyphicon-search"></span>Search</button>
-        </form>
-    </div>
 
+            <input class="form-control " type="text" placeholder="Search Events" id="searchField" onkeydown="search()"/>
+            <button class="btn btn-dark" id="searchButton"type="button" onclick="search()">Search</button>
+    </div>
 </nav>
 
 <div id="blanket" onclick="hideModal()">
@@ -204,11 +227,24 @@
 
 
 <div id="postEventOptions">
-    <div class="col-sm-12">
+    <div class="col-sm-8" style="display: inline-block">
         <ul class="nav flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <li class="nav-item bg-danger text-light"><a class="nav-link" id="list-questions" onclick="showModal()">Post New Event</a></li>
         </ul>
     </div>
+    <div class="dropdown col-sm-4" style="display: inline-block">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a href="#">HTML</a></li>
+            <li><a href="#">CSS</a></li>
+            <li><a href="#">JavaScript</a></li>
+            <li><a href="#">jQuery</a></li>
+            <li><a href="#">Bootstrap</a></li>
+            <li><a href="#">Angular</a></li>
+        </ul>
+    </div>
+
 </div>
 
 <!--MODALS-->
