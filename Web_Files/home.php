@@ -96,12 +96,15 @@
                         //console.log(result);
                         $("#eventScrollList").html('');
                         $("#eventScrollList").prepend(result);
+
+                        $(".eventButton").click(function () {
+                            showModal("signInAnchor");
+                        });
                     },
                     fail:function (XMLHttpRequest, textStatus, error) {
                         alert("FAILED");
                     }
             });
-
         }
 
         $(document).ready(function () {
@@ -136,9 +139,7 @@
                         break;
                 }
             });
-
         });
-
 
         function getDeviceLocation(){
             if (navigator.geolocation) {

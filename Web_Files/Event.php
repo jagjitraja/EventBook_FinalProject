@@ -8,6 +8,7 @@
 
 class Event
 {
+    public $eventID;
     public $postersID;
     public $eventName;
     public $eventDescription;
@@ -16,9 +17,10 @@ class Event
     public $eventCity;
     public $eventState;
 
-    function __construct($postersID, $eventName, $eventDescription, $eventDate, $eventPrice, $eventAddress
+    function __construct($eventID,$postersID, $eventName, $eventDescription, $eventDate, $eventPrice, $eventAddress
         , $eventCity, $eventState){
 
+        $this->eventID = $eventID;
         $this->postersID = $postersID;
         $this->eventName = $eventName;
         $this->eventDescription = $eventDescription;
@@ -43,8 +45,8 @@ class Event
             $this->eventDate.'</h6>
                         <p class="card-text" id="eventDescription">'.
             $this->eventDescription.'</p>
-                        <button id="saveEvent" class="btn btn-primary">Save Event</button></a>
-                        <button id="attendEvent" class="btn btn-warning" style="float: right">Attend Event/ Register</button>
+                        <button id="saveEvent" name = "saveEvent" value="'.$this->eventID.'" class="btn btn-primary eventButton">Save Event</button></a>
+                        <button id="attendEvent" name = "attendEvent" value="'.$this->eventID.'"class="btn btn-warning eventButton" style="float: right">Attend Event/ Register</button>
                    </div>
                 </div>';
 

@@ -16,21 +16,30 @@
     <link rel="stylesheet" href="./View_Styles_And_JS/homeStyles.css"/>
     <script src="./View_Styles_And_JS/homeFunctions.js" type="application/javascript"></script>
 
-
     <script>
-        function getAllEvents(command) {
 
+        function getAllEvents(command,e) {
             if ( typeof command === 'undefined'){
                 alert("Please Refresh, an error occured");
                 return;
             }
+            if (!e){
+                e = 'All Events';
+            }
+            console.log(e);
+            $('#pageTitle').html('<h3>'+e+'</h3>');
 
             var query = {PAGE:'LOGGED_IN',COMMAND:command};
+
             $.ajax({url:'eventController.php',type:'post',data:query,
                 success:function(result){
-                    console.log(result);
+                    //console.log(result);
                     $("#eventScrollList").html('');
                     $("#eventScrollList").prepend(result);
+
+                    $(".eventButton").click(function (e) {
+                        updateUserAndEventData(e);
+                    });
                 },
                 fail:function (XMLHttpRequest, textStatus, error) {
                     alert("FAILED");
@@ -38,12 +47,40 @@
             });
         }
 
+        function updateUserAndEventData(e) {
+            var buttonID = e.target.id;
+            var eventID = e.target.value;
+            var query = {PAGE:'LOGGED_IN',COMMAND:'GET_ALL_EVENTS'};
+
+            switch (buttonID){
+                case 'saveEvent':
+                    query = {PAGE:'LOGGED_IN',COMMAND:"SAVE_EVENT",EVENT_ID:eventID};
+                    break;
+                case 'attendEvent':
+                    query = {PAGE:'LOGGED_IN',COMMAND:"ATTEND_EVENT",EVENT_ID:eventID};
+                    break;
+                default:
+                    break;
+            }
+
+            $.ajax({url:'eventController.php',type:'post',data:query,
+                success:function(result){
+                    console.log(result);
+                    $('#resultTitle').html(result);
+                    $('#resultModal').modal('toggle');
+                },
+                fail:function (XMLHttpRequest, textStatus, error) {
+                    alert("Failed to Update Event :(");
+                }
+            });
+        }
 
         $(document).ready(function () {
 
             getAllEvents('GET_ALL_EVENTS');
 
             $("#submit_post_event").click(function () {
+
                 var formInputArray = $("#eventForm").serializeArray();
                 var fieldsValuesArray = {};
 
@@ -56,22 +93,25 @@
                 var query = {EVENT_DATA:fieldsValuesArray};
                 $.ajax({url: "./eventController.php", type:"post",data:query,
                     success: function(result){
-                        $('#eventScrollList').prepend(result);
+                        $('#eventScrollList').html('');
+                        getAllEvents('GET_MY_EVENTS');
                         $('#modalPostEvent').modal('toggle');
-
-                },  fail:function (XMLHttpRequest, textStatus, error) {
+                    },  fail:function (XMLHttpRequest, textStatus, error) {
                         alert("An error occured posting the event. Please try again :(");
                     }});
+
+                $("#eventForm").trigger('reset');
             });
         });
+
     </script>
 </head>
 
 <body>
 
 
-<nav id="navBar" class="navbar navbar-expand-md navbar-light bg-success fixed-top" style="margin:0">
-    <a class="navbar-brand" onclick="getAllEvents('GET_ALL_EVENTS')" ">EventBook</a>
+<nav id="navBar" class="navbar navbar-expand-md navbar-light bg-success fixed-top" style="margin:0;z-index: 10000;">
+    <a class="navbar-brand" onclick="getAllEvents('GET_ALL_EVENTS')">EventBook</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#myNavBar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -79,13 +119,14 @@
     <div class="collapse navbar-collapse" id="myNavBar">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" id="postedEvents" onclick="getAllEvents('GET_MY_EVENTS')">My Posted Events</a>
+                <a class="nav-link" id="postedEvents" onclick="getAllEvents('REGISTERED_EVENTS',this.name)" data-target="#myNavBar"data-toggle="collapse" name = "My Registered Events">My Registered Events</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="savedEvents" onclick="showModal(this.id)">Saved Events</a>
+                <a class="nav-link" id="savedEvents" onclick="getAllEvents('GET_MY_SAVED_EVENTS',this.name)" data-target="#myNavBar"data-toggle="collapse"name = "My Saved Events">Saved Events</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="myProfile" onclick="showModal(this.id)">My Profile</a>
+                <!--onclick="getAllEvents('GET_MY_EVENTS',this.name)" -->
+                <a class="nav-link" id="myProfile" onclick="$('#goToProfileForm').submit()"  data-target="#myNavBar" data-toggle="collapse" name = "My Profile">My Profile</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="myProfile" onclick="$('#signOutForm').submit()">Logout</a>
@@ -96,13 +137,24 @@
             <button class="btn btn-dark my-2 my-sm-0"><span class="glyphicon glyphicon-search"></span>Search</button>
         </form>
     </div>
-
 </nav>
-<div id="postEventOptions">
+<div id="postEventOptions" style="background: white;">
     <div class="col-sm-12">
         <ul class="nav flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <li class="nav-item bg-danger text-light"><a class="nav-link" id="list-questions" data-toggle="modal" data-target="#modalPostEvent">Post New Event</a></li>
+            <li class="nav-item bg-danger text-light"><a class="nav-link" id="list-questions"
+                                                         data-toggle="modal" data-target="#modalPostEvent">Post New Event</a></li>
         </ul>
+    </div>
+</div>
+
+
+<div class="modal fade" id="resultModal" style="display: none; opacity: 0.85;">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" style="background: cornflowerblue;color: white;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="resultTitle" style="text-align: center;"></h5>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -215,6 +267,11 @@
 <form id="signOutForm" style="display: none" action="userController.php" method="post">
     <input type="hidden" name="PAGE" value="LOGGED_IN"/>
     <input type="hidden" name="COMMAND" value="SIGN_OUT"/>
+</form>
+
+<form id="goToProfileForm" style="display: none" action="userController.php" method="post">
+    <input type="hidden" name="PAGE" value="LOGGED_IN"/>
+    <input type="hidden" name="COMMAND" value="MY_PROFILE"/>
 </form>
 
 </body>

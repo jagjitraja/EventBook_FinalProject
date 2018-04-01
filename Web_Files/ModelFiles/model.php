@@ -80,7 +80,6 @@ function getUserData($email,$password){
 function addEvent($posing_user_id,$eventName,$eventDescription,$eventDate,
                   $eventPrice,$eventAddress,$eventCity,$eventState)
 {
-
     global $db_conn;
 
     $eventDate = date("Y-m-d", strtotime($eventDate));
@@ -103,15 +102,31 @@ function addEvent($posing_user_id,$eventName,$eventDescription,$eventDate,
 
 function getAllEvents($uid = -1){
 
+    //TODO: include posters name joining with users table
     global $db_conn;
-
     if ($uid==-1){
-        $sql = "SELECT * FROM EventBook_Events;" ;
+        $sql = "SELECT * FROM EventBook_Events ORDER BY Event_Posting_Date DESC;" ;
     }
     else{
-        $sql = "SELECT * FROM EventBook_Events WHERE  EventBook_Posted_By_UserID = '$uid';" ;
+        $sql = "SELECT * FROM EventBook_Events WHERE EventBook_Posted_By_UserID = '$uid'ORDER BY Event_Posting_Date DESC;" ;
     }
+    $result = mysqli_query($db_conn,$sql);
+    $eventArray = array();
+    $i = 0;
+    while ($row = mysqli_fetch_assoc($result)){
+        $eventArray[$i] = $row;
+        $i++;
+    }
+    return $eventArray;
+}
 
+function getSavedEvents($userID){
+    global $db_conn;
+
+    $sql = "SELECT * 
+            FROM EventBook_Events 
+            WHERE Event_ID IN (SELECT Interested_Event_ID FROM EventBook_Interested_Users WHERE Interested_User_ID = '$userID')
+            ORDER BY Event_Posting_Date DESC;" ;
     $result = mysqli_query($db_conn,$sql);
 
     $eventArray = array();
@@ -123,10 +138,13 @@ function getAllEvents($uid = -1){
     return $eventArray;
 }
 
-function getPublicEvents(){
-
+function getRegisteredEvents($userID){
     global $db_conn;
-    $sql = "SELECT * FROM EventBook_Events WHERE Public_Event = '1';" ;
+
+    $sql = "SELECT * 
+            FROM EventBook_Events 
+            WHERE Event_ID IN (SELECT Attending_Event_ID FROM EventBook_Attending_Users WHERE Attending_User_ID = '$userID')
+            ORDER BY Event_Posting_Date DESC;" ;
     $result = mysqli_query($db_conn,$sql);
 
     $eventArray = array();
@@ -136,7 +154,44 @@ function getPublicEvents(){
         $i++;
     }
     return $eventArray;
+}
 
+
+function updateSavedEvent($eventID,$postersID){
+
+    global $db_conn;
+
+    $currentDate = date('Y-m-d');
+    $sql = "INSERT INTO EventBook_Interested_Users(Interested_User_ID, 
+                                                    Interested_Event_ID, Date_User_Set_Interested)
+                                                     
+          VALUES ('$postersID','$eventID','$currentDate')";
+
+    $result = mysqli_query($db_conn,$sql);
+
+    if ($result) {
+        return $result;
+    } else {
+        return false;
+    }
+}
+
+function updateAttendEvent($eventID,$postersID){
+    global $db_conn;
+
+    $currentDate = date('Y-m-d');
+    $sql = "INSERT INTO EventBook_Attending_Users(Attending_User_ID, 
+                                                    Attending_Event_ID, Date_Registered)
+                                                     
+          VALUES ('$postersID','$eventID','$currentDate')";
+
+    $result = mysqli_query($db_conn,$sql);
+
+    if ($result) {
+        return $result;
+    } else {
+        return false;
+    }
 }
 
 

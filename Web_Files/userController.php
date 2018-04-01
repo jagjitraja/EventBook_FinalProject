@@ -7,36 +7,36 @@
  * Time: 10:44 AM
  */
 //TODO: CONTROL ALSO IF USER COMES BACK WITH SESSION
+
 if (empty($_POST['PAGE'])) {
     include("./home.php");
     $displayModal = 'NO_MODAL';
     exit();
 }
 
-require ("./ModelFiles/model.php");
+require("./ModelFiles/model.php");
 
-if($_POST['PAGE']=='HOME'){
+if ($_POST['PAGE'] == 'HOME') {
 
-    if($_POST['COMMAND']=='SIGNIN'){
+    if ($_POST['COMMAND'] == 'SIGNIN') {
         $emailEntered = $_POST['EMAIL'];
         $passwordEntered = $_POST['PASSWORD'];
 
-        if(checkEmailPassword($emailEntered,$passwordEntered)){
+        if (checkEmailPassword($emailEntered, $passwordEntered)) {
             session_start();
             $_SESSION['userEmail'] = $emailEntered;
             $_SESSION['LOGGED_IN'] = 'YES';
-            setcookie("email",$emailEntered,time()+86400);
-            include ("./logged_in.php");
-            $userData = getUserData($emailEntered,$passwordEntered);
+            setcookie("email", $emailEntered, time() + 86400);
+            include("./logged_in.php");
+            $userData = getUserData($emailEntered, $passwordEntered);
             $_SESSION['USER_INFO'] = $userData;
-        }else{
+        } else {
             $displayModal = 'SIGNIN';
             $invalidPasswordEmailError = "<h6 id='error' class = 'alert-danger'>Invalid Email - Password combination entered</h6>";
             include("./home.php");
             exit();
         }
-    }
-    elseif ($_POST['COMMAND'] == 'REGISTER'){
+    } elseif ($_POST['COMMAND'] == 'REGISTER') {
         //check validity and sign in
         $username = $_POST['USERNAME'];
         $phone_number = $_POST['PHONE_NUMBER'];
@@ -45,27 +45,27 @@ if($_POST['PAGE']=='HOME'){
         $emailEntered = $_POST['EMAIL'];
         $passwordEntered = $_POST['PASSWORD'];
 
-        if(userExistsInDB($emailEntered)){
+        if (userExistsInDB($emailEntered)) {
             $displayModal = 'SIGNIN';
             $invalidPasswordEmailError = "<h6 class = 'alert-danger'>Email exists, try signing in</h6>";
             include("./home.php");
 
-        }elseif (addUserInDB($username,$emailEntered,$passwordEntered,$phone_number,$user_city,$user_state)){
+        } elseif (addUserInDB($username, $emailEntered, $passwordEntered, $phone_number, $user_city, $user_state)) {
             session_start();
             $_SESSION['user'] = $emailEntered;
             $_SESSION['LOGGED_IN'] = 'YES';
-            setcookie("email",$emailEntered,time()+86400);
-            $userData = getUserData($emailEntered,$passwordEntered);
+            setcookie("email", $emailEntered, time() + 86400);
+            $userData = getUserData($emailEntered, $passwordEntered);
             $_SESSION['USER_INFO'] = $userData;
-            include ("./logged_in.php");
-        }else{
+            include("./logged_in.php");
+        } else {
             $displayModal = 'REGISTER';
             $invalidPasswordEmailError = "<h6 class = 'alert-danger'>Failed to register, Please try again</h6>";
             include("./home.php");
         }
     }
 
-}elseif ($_POST['PAGE']=='LOGGED_IN'){
+} elseif ($_POST['PAGE'] == 'LOGGED_IN') {
 
     session_start();
 
@@ -76,23 +76,35 @@ if($_POST['PAGE']=='HOME'){
         include "home.php";
         exit();
     }
-    switch ($command){
+    switch ($command) {
         case 'SIGN_OUT':
             signOut();
+            break;
+        case 'MY_PROFILE':
+            include "myprofile.php";
+            exit();
+            break;
+        case 'UPDATE_PROFILE':
+            print_r($_POST);
+            updateUserInfo();
+            break;
+        case 'EVENTS_NO_CHANGE':
+            include './logged_in.php';
             break;
         default:
             echo "AN ERROR OCCURED";
             break;
     }
 
-}else{
+} else {
     echo "An error occured";
     signOut();
     include "home.php";
 }
 
 
-function signOut(){
+function signOut()
+{
     session_unset();
     session_destroy();
     include "home.php";

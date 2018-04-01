@@ -7,10 +7,7 @@ require "./Event.php";
 session_start();
 
 if (!isset($_SESSION['LOGGED_IN']) || $_SESSION['LOGGED_IN'] != 'YES') {
-    echo 'Session is broken<br>';
-    session_unset();
-    session_destroy();
-    exit();
+    $_SESSION['LOGGED_IN'] = 'NO';
 }
 
 if (isset($_POST["EVENT_DATA"])){
@@ -24,6 +21,7 @@ if (isset( $_SESSION['USER_INFO']))
 
 if ($eventDataArray['PAGE']=='LOGGED_IN'){
 
+    $postersID = $postersDataArray['User_ID'];
     $command = $eventDataArray['COMMAND'];
     switch ($command){
         case 'POST_EVENT':
@@ -36,32 +34,55 @@ if ($eventDataArray['PAGE']=='LOGGED_IN'){
             $eventCity = $eventDataArray['EVENTCITY'];
             $eventState = $eventDataArray['EVENTSTATE'];
 
-            $postersID = $postersDataArray['User_ID'];
-
             if(addEvent($postersID,$eventName,$eventDescription,$eventDate,$eventPrice,$eventAddress
                     ,$eventCity,$eventState)){
 
-                $postedEvent = new Event($postersID,$eventName,$eventDescription,$eventDate,$eventPrice,$eventAddress
-                    ,$eventCity,$eventState);
-                //send html formatted String
-                echo $postedEvent->getEventLayoutString();
+                echo getUpdatedEvents();
             }else{
                 return false;
             }
             break;
         case 'GET_ALL_EVENTS':
-            $dbS = getAllEvents();
-            $a = processEvents($dbS);
+            $a = getUpdatedEvents();
             echo $a;
             break;
 
         case 'GET_MY_EVENTS':
-            $postersID = $postersDataArray['User_ID'];
-
             $dbS = getAllEvents($postersID);
             $a = processEvents($dbS);
             echo $a;
             break;
+        case 'REGISTERED_EVENTS':
+            $dbS = getRegisteredEvents($postersID);
+            $a = processEvents($dbS);
+            echo $a;
+            break;
+
+
+        case 'SAVE_EVENT':
+            $eventID = $_POST['EVENT_ID'];
+            $result = updateSavedEvent($eventID,$postersID);
+            if ($result){
+                echo "Saving Event Successful, See you there :)";
+            }else{
+                echo "Saving Event Unsuccessful, we failed sorry :(";
+            }
+            break;
+        case 'ATTEND_EVENT':
+            $eventID = $_POST['EVENT_ID'];
+            $result = updateAttendEvent($eventID,$postersID);
+            if ($result){
+                echo "Saving Event Successful, See you there :)";
+            }else{
+                echo "Saving Event Unsuccessful, we failed sorry :(";
+            }
+            break;
+
+        case 'GET_MY_SAVED_EVENTS':
+            $result = getSavedEvents($postersID);
+            echo processEvents($result);
+            break;
+
         default:
             echo "AN ERROR OCCURED";
             break;
@@ -72,10 +93,7 @@ if ($eventDataArray['PAGE']=='LOGGED_IN'){
     $command = $_POST['COMMAND'];
     switch ($command){
         case "GET_PUBLIC_EVENTS":
-
-            $dbS = getPublicEvents();
-            $a = processEvents($dbS);
-            echo $a;
+            echo getUpdatedEvents();
             break;
         default:
             break;
@@ -87,6 +105,11 @@ if ($eventDataArray['PAGE']=='LOGGED_IN'){
     include "home.php";
 }
 
+function getUpdatedEvents(){
+    $dbS = getAllEvents(-1);
+    $a = processEvents($dbS);
+    return $a;
+}
 
 function processEvents($eventsFromDatabase){
 
@@ -97,7 +120,7 @@ function processEvents($eventsFromDatabase){
     }
 
     foreach ($eventsFromDatabase as $event){
-
+        $eventID = $event['Event_ID'];
         $eventName = $event['Event_Name'];
         $eventDescription = $event['Event_Description'];
         $eventDate = $event['Event_Date'];
@@ -107,7 +130,7 @@ function processEvents($eventsFromDatabase){
         $eventState = $event['Eevnt_State'];
         $postersID = $event['EventBook_Posted_By_UserID'];
 
-        $eventObject = new Event($postersID,$eventName,$eventDescription,$eventDate,$eventPrice,$eventAddress
+        $eventObject = new Event($eventID,$postersID,$eventName,$eventDescription,$eventDate,$eventPrice,$eventAddress
             ,$eventCity,$eventState);
 
         $htmlEventListString.=$eventObject->getEventLayoutString();
