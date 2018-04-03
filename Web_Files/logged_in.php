@@ -18,16 +18,16 @@
 
     <script>
 
-        function getAllEvents(command,e,type) {
+        function getAllEvents(command,title,type) {
             if ( typeof command === 'undefined'){
                 alert("Please Refresh, an error occured");
                 return;
             }
-            if (e==null){
-                e = 'All Events';
+            if (title==null){
+                title = 'All Events';
             }
-            console.log(e+"   "+type+"  "+command);
-            $('#pageTitle').html('<h3>'+e+'</h3>');
+            console.log(title+"   "+type+"  "+command);
+            $('#pageTitle').html('<h3>'+title+'</h3>');
 
             var query = {PAGE:'LOGGED_IN',COMMAND:command,SELECT_TYPE:type};
 
@@ -67,7 +67,7 @@
 
             $.ajax({url:'eventController.php',type:'post',data:query,
                 success:function(result){
-                    console.log(result);
+                    //console.log(result);
                     $('#resultTitle').html(result);
                     $('#resultModal').modal('toggle');
                 },

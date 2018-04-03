@@ -134,7 +134,7 @@ function getAllEvents($uid = -1,$selectType = "ALL")
     }else{
         $sql .=" ORDER BY Event_Posting_Date DESC;";
     }
-    print_r($sql);
+    
     $result = mysqli_query($db_conn, $sql);
     $eventArray = array();
     $i = 0;
@@ -151,13 +151,10 @@ function getSavedEvents($userID,$selectType = "ALL")
     $sql = "SELECT * FROM EventBook_Events ";
     global $db_conn;
     if ($userID!== -1){
-        $sql .= "WHERE EventBook_Posted_By_UserID = '$userID'";
+        $sql .= "WHERE Event_ID IN (SELECT Interested_Event_ID FROM EventBook_Interested_Users
+                 WHERE '$userID' = Interested_User_ID)";
     }
-    if ($selectType!="ALL"){
-        $sql .=" WHERE UPPER (Event_Type) = UPPER ('$selectType') ORDER BY Event_Posting_Date DESC;";
-    }else{
-        $sql .=" ORDER BY Event_Posting_Date DESC;";
-    }
+    $sql .=" ORDER BY Event_Posting_Date DESC;";
 
 
     $result = mysqli_query($db_conn, $sql);
@@ -176,13 +173,12 @@ function getRegisteredEvents($userID,$selectType = "ALL")
     $sql = "SELECT * FROM EventBook_Events ";
     global $db_conn;
     if ($userID!== -1){
-        $sql .= "WHERE EventBook_Posted_By_UserID = '$userID'";
+        $sql .= "WHERE Event_ID IN (SELECT Attending_Event_ID FROM EventBook_Attending_Users
+                 WHERE '$userID' = Attending_User_ID)";
     }
-    if ($selectType!="ALL"){
-        $sql .=" WHERE UPPER (Event_Type) = UPPER ('$selectType') ORDER BY Event_Posting_Date DESC;";
-    }else{
-        $sql .=" ORDER BY Event_Posting_Date DESC;";
-    }
+
+    $sql .=" ORDER BY Event_Posting_Date DESC;";
+
     $result = mysqli_query($db_conn, $sql);
 
     $eventArray = array();
