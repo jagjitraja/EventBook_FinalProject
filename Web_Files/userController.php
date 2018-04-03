@@ -82,7 +82,6 @@ if ($_POST['PAGE'] == 'HOME') {
             break;
         case 'MY_PROFILE':
             include "myprofile.php";
-            exit();
             break;
         case 'UPDATE_PROFILE':
 

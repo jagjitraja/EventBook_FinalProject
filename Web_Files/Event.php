@@ -17,9 +17,10 @@ class Event
     public $eventPrice;
     public $eventCity;
     public $eventState;
+    public $eventType;
 
     function __construct($eventID,$postersID, $eventName, $eventDescription, $eventDate, $eventPrice, $eventAddress
-        , $eventCity, $eventState, $postersName){
+        , $eventCity, $eventState, $postersName,$eventType){
 
         $this->eventID = $eventID;
         $this->postersID = $postersID;
@@ -30,13 +31,14 @@ class Event
         $this->eventCity = $eventCity;
         $this->eventState = $eventState;
         $this->postersName = $postersName;
+        $this->eventType = $eventType;
 
     }
 
     public function getEventLayoutString(){
 
         $str =  '<div class="card container bg-light border-info mb-3" id="eventBody">
-                    <div class="card-header"><h5>'.$this->postersName.'</h5></div>
+                    <div class="card-header"><h5>'.$this->postersName.'</h5><h6 style="float: right;">'.$this->eventType.'</h6></div>
                     <div class="card-body" id="eventContent">
                         <h5 class="card-title" id="eventName">'.
             $this->eventName.'</h5>

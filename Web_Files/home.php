@@ -87,10 +87,9 @@
             $("#blanket").toggle("slow");
         }
 
-        function getPublicEventsFromDatabase() {
+        function getPublicEventsFromDatabase(type) {
 
-            var query = {PAGE:'HOME',COMMAND:'GET_PUBLIC_EVENTS'};
-
+            var query = {PAGE:'HOME',COMMAND:'GET_PUBLIC_EVENTS',SELECT_TYPE:type};
             $.ajax({url:'eventController.php',type:'post',data:query,
                     success:function(result){
                         //console.log(result);
@@ -100,6 +99,8 @@
                         $(".eventButton").click(function () {
                             showModal("signInAnchor");
                         });
+
+                        $("#eventFilterTitle").html(type+" EVENTS");
                     },
                     fail:function (XMLHttpRequest, textStatus, error) {
                         alert("FAILED");
@@ -110,7 +111,7 @@
         $(document).ready(function () {
             //getDeviceLocation();
 
-            getPublicEventsFromDatabase();
+            getPublicEventsFromDatabase("ALL");
 
             <?php
             if (isset($displayModal)) {
@@ -146,7 +147,7 @@
             hideModal();
             var criteria = $("#searchField").val();
             if (criteria.length>0){
-                var query = {PAGE:'HOME',COMMAND:'SEARCH',CRITERIA:criteria};
+                var query = {PAGE:'HOME',COMMAND:'SEARCH',CRITERIA:criteria,SELECT_TYPE:'ALL'};
 
                 $.ajax({url:'eventController.php',type:'post',data:query,
                     success:function(result){
@@ -232,16 +233,15 @@
             <li class="nav-item bg-danger text-light"><a class="nav-link" id="list-questions" onclick="showModal()">Post New Event</a></li>
         </ul>
     </div>
-    <div class="dropdown col-sm-4" style="display: inline-block">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-            <span class="caret"></span></button>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span id="eventFilterTitle">Filter Event Type</span><span class="caret"></span></button>
         <ul class="dropdown-menu">
-            <li><a href="#">HTML</a></li>
-            <li><a href="#">CSS</a></li>
-            <li><a href="#">JavaScript</a></li>
-            <li><a href="#">jQuery</a></li>
-            <li><a href="#">Bootstrap</a></li>
-            <li><a href="#">Angular</a></li>
+            <li class = "nav-link"><a onclick="getPublicEventsFromDatabase(this.name)" name="EDUCATIONAL">Educational</a></li>
+            <li class = "nav-link"><a onclick="getPublicEventsFromDatabase(this.name)" name="BUSINESS">Business</a></li>
+            <li class = "nav-link"><a onclick="getPublicEventsFromDatabase(this.name)" name="SOCIAL">Social</a></li>
+            <li class = "nav-link"><a onclick="getPublicEventsFromDatabase(this.name)" name="PARTY">Party</a></li>
+            <li class = "nav-link"><a onclick="getPublicEventsFromDatabase(this.name)" name="SPORTS">Sports</a></li>
+            <li class = "nav-link"><a onclick="getPublicEventsFromDatabase(this.name)" name="AWARDS">Awards</a></li>
         </ul>
     </div>
 

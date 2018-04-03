@@ -80,7 +80,6 @@ function checkEmailPassword($email, $password)
 
 function getUserData($email, $password)
 {
-
     global $db_conn;
     $sql = "SELECT * FROM EventBook_Users WHERE UPPER('$email') = UPPER(USER_EMAIL) AND '$password' = USER_PASSWORD;";
     $result = mysqli_query($db_conn, $sql);
@@ -120,12 +119,10 @@ function addEvent($posing_user_id, $eventName, $eventDescription, $eventDate,
 
 function getAllEvents($uid = -1,$selectType = "ALL")
 {
-
-    //TODO: include posters name joining with users table
     $sql = "SELECT * FROM EventBook_Events ";
 
     global $db_conn;
-    if ($uid!== -1){
+    if ($uid!= -1){
         $sql .= "WHERE EventBook_Posted_By_UserID = '$uid'";
     }
 
@@ -134,7 +131,6 @@ function getAllEvents($uid = -1,$selectType = "ALL")
     }else{
         $sql .=" ORDER BY Event_Posting_Date DESC;";
     }
-    print_r($sql);
     $result = mysqli_query($db_conn, $sql);
     $eventArray = array();
     $i = 0;
@@ -146,11 +142,26 @@ function getAllEvents($uid = -1,$selectType = "ALL")
     return $eventArray;
 }
 
+function getMyPostedEvents($uid){
+
+    global $db_conn;
+    $sql = "SELECT * FROM EventBook_Events WHERE EventBook_Posted_By_UserID = '$uid'";
+
+    $result = mysqli_query($db_conn, $sql);
+    $eventArray = array();
+    $i = 0;
+    while ($row = mysqli_fetch_assoc($result)) {
+        $eventArray[$i] = $row;
+        $i++;
+    }
+    return $eventArray;
+}
+
 function getSavedEvents($userID,$selectType = "ALL")
 {
     $sql = "SELECT * FROM EventBook_Events ";
     global $db_conn;
-    if ($userID!== -1){
+    if ($userID!= -1){
         $sql .= "WHERE EventBook_Posted_By_UserID = '$userID'";
     }
     if ($selectType!="ALL"){
@@ -195,7 +206,7 @@ function getRegisteredEvents($userID,$selectType = "ALL")
 }
 
 
-function updateSavedEvent($eventID, $postersID)
+function addSavedEvent($eventID, $postersID)
 {
     global $db_conn;
     $currentDate = date('Y-m-d');
@@ -213,7 +224,7 @@ function updateSavedEvent($eventID, $postersID)
     }
 }
 
-function updateAttendEvent($eventID, $postersID)
+function addAttendEvent($eventID, $postersID)
 {
     global $db_conn;
 

@@ -18,18 +18,18 @@
 
     <script>
 
-        function getAllEvents(command,e) {
+        function getAllEvents(command,e,type) {
             if ( typeof command === 'undefined'){
                 alert("Please Refresh, an error occured");
                 return;
             }
-            if (!e){
+            if (e==null){
                 e = 'All Events';
             }
-            console.log(e);
+            console.log(e+"   "+type+"  "+command);
             $('#pageTitle').html('<h3>'+e+'</h3>');
 
-            var query = {PAGE:'LOGGED_IN',COMMAND:command};
+            var query = {PAGE:'LOGGED_IN',COMMAND:command,SELECT_TYPE:type};
 
             $.ajax({url:'eventController.php',type:'post',data:query,
                 success:function(result){
@@ -40,6 +40,8 @@
                     $(".eventButton").click(function (e) {
                         updateUserAndEventData(e);
                     });
+
+                    $("#eventFilterTitle").html(type+" EVENTS");
                 },
                 fail:function (XMLHttpRequest, textStatus, error) {
                     alert("FAILED");
@@ -77,7 +79,7 @@
         function search () {
             var criteria = $("#searchField").val();
             if (criteria.length>0){
-                var query = {PAGE:'HOME',COMMAND:'SEARCH',CRITERIA:criteria};
+                var query = {PAGE:'HOME',COMMAND:'SEARCH',CRITERIA:criteria,SELECT_TYPE:'ALL'};
 
                 $.ajax({url:'eventController.php',type:'post',data:query,
                     success:function(result){
@@ -97,7 +99,7 @@
 
         $(document).ready(function () {
 
-            getAllEvents('GET_ALL_EVENTS');
+            getAllEvents('GET_ALL_EVENTS',null,"ALL");
 
             $("#submit_post_event").click(function () {
 
@@ -132,7 +134,7 @@
 
 
 <nav id="navBar" class="navbar navbar-expand-md navbar-light bg-success fixed-top" style="margin:0;z-index: 10000;">
-    <a class="navbar-brand" onclick="getAllEvents('GET_ALL_EVENTS')">EventBook</a>
+    <a class="navbar-brand" onclick="getAllEvents('GET_ALL_EVENTS',null,'ALL')">EventBook</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#myNavBar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -140,10 +142,10 @@
     <div class="collapse navbar-collapse" id="myNavBar">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" id="postedEvents" onclick="getAllEvents('REGISTERED_EVENTS',this.name)" data-target="#myNavBar"data-toggle="collapse" name = "My Registered Events">My Registered Events</a>
+                <a class="nav-link" id="postedEvents" onclick="getAllEvents('REGISTERED_EVENTS',this.name,'ALL')" data-target="#myNavBar"data-toggle="collapse" name = "My Registered Events">My Registered Events</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="savedEvents" onclick="getAllEvents('GET_MY_SAVED_EVENTS',this.name)" data-target="#myNavBar"data-toggle="collapse"name = "My Saved Events">Saved Events</a>
+                <a class="nav-link" id="savedEvents" onclick="getAllEvents('GET_MY_SAVED_EVENTS',this.name,'ALL')" data-target="#myNavBar"data-toggle="collapse"name = "My Saved Events">Saved Events</a>
             </li>
             <li class="nav-item">
                 <!--onclick="getAllEvents('GET_MY_EVENTS',this.name)" -->
@@ -162,6 +164,19 @@
         <ul class="nav flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <li class="nav-item bg-danger text-light"><a class="nav-link" id="list-questions"
                                                          data-toggle="modal" data-target="#modalPostEvent">Post New Event</a></li>
+        </ul>
+    </div>
+
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span id="eventFilterTitle">Filter Event Type</span><span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <a class="nav-link" onclick="getAllEvents('GET_ALL_EVENTS',null,this.name)" name="ALL">All</a>
+            <a class="nav-link" onclick="getAllEvents('GET_ALL_EVENTS',null,this.name)" name="EDUCATIONAL">Educational</a>
+            <a class="nav-link" onclick="getAllEvents('GET_ALL_EVENTS',null,this.name)" name="BUSINESS">Business</a>
+            <a class="nav-link" onclick="getAllEvents('GET_ALL_EVENTS',null,this.name)" name="SOCIAL">Social</a>
+            <a class="nav-link" onclick="getAllEvents('GET_ALL_EVENTS',null,this.name)" name="PARTY">Party</a>
+            <a class="nav-link" onclick="getAllEvents('GET_ALL_EVENTS',null,this.name)" name="SPORTS">Sports</a>
+           <a class="nav-link" onclick="getAllEvents('GET_ALL_EVENTS',null,this.name)" name="AWARDS">Awards</a>
         </ul>
     </div>
 </div>
@@ -207,6 +222,20 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label for="inputEventType" class="col-sm-4 col-form-label">Event Type:</label>
+                        <div class="col-sm-8">
+                            <select class="dropdown btn btn-dark" name="EVENTTYPE">
+                                    <option class = "nav-link" value = "Educational">Educational</option>
+                                    <option class = "nav-link" value = "Business">Business</option>
+                                    <option class = "nav-link" value = "Social">Social</option>
+                                    <option class = "nav-link" value = "Party">Party</option>
+                                    <option class = "nav-link" value = "Sports">Sports</option>
+                                    <option class = "nav-link" value = "Awards">Awards</option>
+                            </select>
+                    </div>
+                    </div>
+
                     <div class="form-group row" >
                         <label for="inputEventPrice" class="col-sm-4 col-form-label">Price:</label>
                         <div class="col-sm-8">
@@ -214,7 +243,6 @@
                                    id="inputEventPrice" placeholder="$###.###" required/>
                         </div>
                     </div>
-
 
                     <div class="form-group row" id="addressRow">
                         <label for="inputEventAddress" class="col-sm-4 col-form-label">Address: </label>

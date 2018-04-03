@@ -16,7 +16,10 @@
 
     <script>
 
+
         $(document).ready(function () {
+
+
 
             var session_array = <?php echo json_encode($_SESSION);?>;
             console.log(session_array);
@@ -43,7 +46,25 @@
                 }
             });
 
+            loadMyPostedEvents(USER_INFO['User_ID']);
+
         });
+
+        function loadMyPostedEvents(userID) {
+
+            var query = {PAGE:'MY_PROFILE',COMMAND:'GET_MY_EVENTS',USER_ID:userID};
+            $.ajax({url:'eventController.php',type:'post',data:query,
+                success:function(result){
+                    //console.log(result);
+                    $("#eventScrollList").html('');
+                    $("#eventScrollList").prepend(result);
+
+                },
+                fail:function (XMLHttpRequest, textStatus, error) {
+                    alert("FAILED");
+                }
+            });
+        }
     </script>
 
 
@@ -153,6 +174,16 @@
     <input type="hidden" name="PAGE" value="LOGGED_IN"/>
     <input type="hidden" name="COMMAND" value="EVENTS_NO_CHANGE"/>
 </form>
+
+
+
+<div class="container-fluid jumbotron" id="eventScrollBack">
+
+    <div class="container" id="eventScrollList">
+
+
+    </div>
+</div>
 
 </body>
 </html>
