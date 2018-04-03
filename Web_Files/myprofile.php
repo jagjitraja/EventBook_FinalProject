@@ -1,8 +1,9 @@
 <!DOCTYPE>
 <html>
 <head>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Popper JS -->
@@ -18,8 +19,6 @@
 
 
         $(document).ready(function () {
-
-
 
             var session_array = <?php echo json_encode($_SESSION);?>;
             console.log(session_array);
@@ -50,6 +49,10 @@
 
         });
 
+        function showEditEventModal(e) {
+            alert(e);
+        }
+
         function loadMyPostedEvents(userID) {
 
             var query = {PAGE:'MY_PROFILE',COMMAND:'GET_MY_EVENTS',USER_ID:userID};
@@ -58,13 +61,17 @@
                     //console.log(result);
                     $("#eventScrollList").html('');
                     $("#eventScrollList").prepend(result);
-
+                    $(".eventOwnerButtons").show();
+                    $(".eventOwnerButtons").click(function () {
+                        showEditEventModal(this);
+                    });
                 },
                 fail:function (XMLHttpRequest, textStatus, error) {
                     alert("FAILED");
                 }
             });
         }
+
     </script>
 
 
@@ -176,9 +183,8 @@
 </form>
 
 
-
 <div class="container-fluid jumbotron" id="eventScrollBack">
-
+    <h6 class="display-4 text-center">My Events</h6>
     <div class="container" id="eventScrollList">
 
 

@@ -147,7 +147,7 @@ function processEvents($eventsFromDatabase){
     $htmlEventListString = "";
 
     if (count($eventsFromDatabase)===0){
-        return '<div class="alert-danger"><h1 class="text-center"> No Events Posted :(</h1></div>';
+        return '<div class="alert-danger"><h1 class="text-center"> No Events Found :(</h1></div>';
     }
 
     foreach ($eventsFromDatabase as $event){

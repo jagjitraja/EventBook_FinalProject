@@ -134,7 +134,7 @@ function getAllEvents($uid = -1,$selectType = "ALL")
     }else{
         $sql .=" ORDER BY Event_Posting_Date DESC;";
     }
-    
+
     $result = mysqli_query($db_conn, $sql);
     $eventArray = array();
     $i = 0;
