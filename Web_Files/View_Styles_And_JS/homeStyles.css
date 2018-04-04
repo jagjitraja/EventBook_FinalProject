@@ -52,7 +52,7 @@ a{
     background: white;
     width: 750px;
     padding:50px;
-    padding-top: 20px;
+    padding-top: 200px;
 }
 
 .eventBody{
@@ -79,12 +79,9 @@ a{
     padding: 10px;
 }
 
-#eventScrollBack{
-    margin-top: 200px;
+#modalDeleteEvent,#modalEditEvent{
+    top:20%;
 }
-
-
-
 #searchField{
     width: auto !important;
 }

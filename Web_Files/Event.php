@@ -37,10 +37,10 @@ class Event
 
     public function getEventLayoutString(){
 
-        $str =  '<div class="card container bg-light border-info mb-3 eventBody" id="'.$this->eventID.'">
-                    <div class = "btn-block float-right mb-2 mt-2 eventOwnerButtons" style="display:none;">
-                    <button class="btn btn-info btn-sm" title="Edit Event" id="editEventButton"><i class="material-icons">mode_edit</i></button>
-                    <button class="btn btn-danger btn-sm" title="Delete Event" id="deleteEventButton"><i class="material-icons">&#xE872;</i></button>
+        $str =  '<div class="card container bg-light border-info mb-3 eventBody" >
+                    <div class = "btn-block float-right mb-2 mt-2 eventCardButtons" style="display:none;">
+                        <button class="btn btn-info btn-sm editEventButton" title="Edit Event" data-toggle="modal" data-target="#modalEditEvent">Edit</button>
+                        <button class="btn btn-danger btn-sm deleteEventButton" title="Delete Event"data-toggle="modal" data-target="#modalDeleteEvent">Delete</button>
                     </div>
                     <div class="card-header"><h5>'.$this->postersName.'</h5><h6 class="lead" style="float: right;">'.$this->eventType.'</h6></div>
                     <div class="card-body" id="eventContent">
@@ -53,7 +53,7 @@ class Event
             $this->eventDate.'</h6>
                         <p class="card-text text-justify" id="eventDescription">'.
             $this->eventDescription.'</p>
-                        <div class="card-footer">
+                        <div class="card-footer eventSaveRegisterButtons">
                         <button id="saveEvent" name = "saveEvent" value="'.$this->eventID.'" class="btn btn-primary eventButton">Save Event</button></a>
                         <button id="attendEvent" name = "attendEvent" value="'.$this->eventID.'"class="btn btn-warning eventButton" style="float: right">Attend Event/ Register</button>
                     </div>

@@ -119,7 +119,7 @@
                 $.ajax({url: "./eventController.php", type:"post",data:query,
                     success: function(result){
                         $('#eventScrollList').html('');
-                        getAllEvents('GET_MY_EVENTS');
+                        getAllEvents('GET_MY_EVENTS',null,"ALL");
                         $('#modalPostEvent').modal('toggle');
                     },  fail:function (XMLHttpRequest, textStatus, error) {
                         alert("An error occured posting the event. Please try again :(");

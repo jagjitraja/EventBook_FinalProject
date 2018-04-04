@@ -115,15 +115,38 @@ if ($eventDataArray['PAGE']=='LOGGED_IN'){
 }elseif ($_POST['PAGE'] == 'MY_PROFILE'){
 
     $command = $_POST['COMMAND'];
-    $userID = $_POST['USER_ID'];
+    if (isset($_POST['USER_ID']))
+        $userID = $_POST['USER_ID'];
 
     switch ($command){
         case "GET_MY_EVENTS":
-            echo getUpdatedEvents($userID);
+            echo json_encode(getAllEvents($userID,'ALL'));
             break;
         case 'SEARCH':
             $searchResult = searchEvents($_POST['CRITERIA']);
             echo processEvents($searchResult);
+            break;
+        case 'UPDATE_EVENTS':
+            $eventName = $eventDataArray['EVENTNAME'];
+            $eventDescription = $eventDataArray['EVENTDESCRIPTION'];
+            $eventDate = $eventDataArray['EVENTDATE'];
+            $eventPrice = $eventDataArray['EVENTPRICE'];
+            $eventAddress = $eventDataArray['EVENTADDRESS'];
+            $eventCity = $eventDataArray['EVENTCITY'];
+            $eventState = $eventDataArray['EVENTSTATE'];
+            $eventType = $eventDataArray['EVENTTYPE'];
+            $eventID = $eventDataArray['EVENT_ID'];
+
+            if(updateEventInfo($eventID,$eventName,$eventDescription,$eventDate,$eventPrice,$eventAddress
+                ,$eventCity,$eventState,$eventType)){
+                echo getUpdatedEvents();
+            }else{
+                return false;
+            }
+            break;
+        case 'DELETE_EVENTS':
+            $eventID = $_POST['EVENT_ID'];
+            echo(deleteEvent($eventID));
             break;
         default:
             break;

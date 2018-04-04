@@ -91,13 +91,8 @@ function getUserData($email, $password)
         return false;
     }
 }
-
-//TODO: CHANGE EMAIL, PASSWORD, PHONE AND USER NAME
-//TODO: EVENTS SQL
-
 function addEvent($posing_user_id, $eventName, $eventDescription, $eventDate,
-                  $eventPrice, $eventAddress, $eventCity, $eventState, $eventType)
-{
+                  $eventPrice, $eventAddress, $eventCity, $eventState, $eventType){
     global $db_conn;
 
     $eventDate = date("Y-m-d", strtotime($eventDate));
@@ -118,10 +113,8 @@ function addEvent($posing_user_id, $eventName, $eventDescription, $eventDate,
     }
 }
 
-function getAllEvents($uid = -1,$selectType = "ALL")
-{
+function getAllEvents($uid = -1,$selectType = "ALL"){
 
-    //TODO: include posters name joining with users table
     $sql = "SELECT * FROM EventBook_Events ";
 
     global $db_conn;
@@ -266,4 +259,34 @@ function searchEvents($criteria){
     return $eventArray;
 }
 
+function updateEventInfo($eventID,$eventName,$eventDescription,$eventDate,$eventPrice,
+                         $eventAddress,$eventCity,$eventState,$eventType){
+
+    global $db_conn;
+    $currentDate = date('Y-m-d');
+    $sql = "UPDATE EventBook_Events SET 
+            Event_Name='$eventName',Event_Description='$eventDescription',
+            Event_Date='$eventDate',Event_Price='$eventPrice',
+            Event_Address='$eventAddress',Event_Posting_Date='$currentDate',
+            Eevnt_State='$eventState',
+            Event_City='$eventCity',Event_Type='$eventType' WHERE Event_ID = '$eventID';";
+
+    $result = mysqli_query($db_conn,$sql);
+    return $result;
+}
+
+function deleteEvent($eventID){
+    global $db_conn;
+
+    $sql = "DELETE FROM EventBook_Interested_Users WHERE Interested_Event_ID = $eventID;";
+    $result = mysqli_query($db_conn,$sql);
+
+    $sql = "DELETE FROM EventBook_Attending_Users WHERE Attending_Event_ID = $eventID;";
+    $result = mysqli_query($db_conn,$sql);
+
+    $sql = "DELETE FROM EventBook_Events WHERE Event_ID = $eventID;";
+    $result = mysqli_query($db_conn,$sql);
+
+    return $result;
+}
 ?>
