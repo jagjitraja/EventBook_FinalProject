@@ -85,3 +85,7 @@ a{
 #searchField{
     width: auto !important;
 }
+
+.modal-dialog{
+    top: 15vh !important;
+}

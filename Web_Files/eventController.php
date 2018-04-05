@@ -42,7 +42,6 @@ if ($eventDataArray['PAGE']=='LOGGED_IN'){
 
             if(addEvent($postersID,$eventName,$eventDescription,$eventDate,$eventPrice,$eventAddress
                     ,$eventCity,$eventState,$eventType)){
-
                 echo getUpdatedEvents();
             }else{
                 return false;
@@ -82,6 +81,13 @@ if ($eventDataArray['PAGE']=='LOGGED_IN'){
             }
             break;
 
+        case 'REMOVE_SAVED_EVENT':
+            $eventID = $_POST['EVENT_ID'];
+            $result = removeSavedEvent($postersID,$eventID);
+
+            echo $eventID;
+
+            break;
         case 'GET_MY_SAVED_EVENTS':
             $result = getSavedEvents($postersID);
             echo processEvents($result);
@@ -115,8 +121,8 @@ if ($eventDataArray['PAGE']=='LOGGED_IN'){
 }elseif ($_POST['PAGE'] == 'MY_PROFILE'){
 
     $command = $_POST['COMMAND'];
-    if (isset($_POST['USER_ID']))
-        $userID = $_POST['USER_ID'];
+    $postersDataArray = $_SESSION['USER_INFO'];
+    $userID = $postersDataArray['User_ID'];
 
     switch ($command){
         case "GET_MY_EVENTS":
@@ -148,6 +154,11 @@ if ($eventDataArray['PAGE']=='LOGGED_IN'){
             $eventID = $_POST['EVENT_ID'];
             echo(deleteEvent($eventID));
             break;
+        case 'DELETE_ACCOUNT':
+            echo(deleteAccount($userID));
+            include "home.php";
+            exit();
+            break;
         default:
             break;
     }
@@ -173,25 +184,30 @@ function processEvents($eventsFromDatabase){
         return '<div class="alert-danger"><h1 class="text-center"> No Events Found :(</h1></div>';
     }
 
-    foreach ($eventsFromDatabase as $event){
-        $eventID = $event['Event_ID'];
-        $eventName = $event['Event_Name'];
-        $eventDescription = $event['Event_Description'];
-        $eventDate = $event['Event_Date'];
-        $eventPrice = $event['Event_Price'];
-        $eventAddress = $event['Event_Address'];
-        $eventCity = $event['Event_City'];
-        $eventState = $event['Eevnt_State'];
-        $postersID = $event['EventBook_Posted_By_UserID'];
-        $postersName = getEventPostersName($postersID)['USER_NAME'];
-        $eventType = $event['Event_Type'];
+    if (is_array($eventsFromDatabase)||is_object($eventsFromDatabase)) {
+        foreach ($eventsFromDatabase as $event) {
+            $eventID = $event['Event_ID'];
+            $eventName = $event['Event_Name'];
+            $eventDescription = $event['Event_Description'];
+            $eventDate = $event['Event_Date'];
+            $eventPrice = $event['Event_Price'];
+            $eventAddress = $event['Event_Address'];
+            $eventCity = $event['Event_City'];
+            $eventState = $event['Eevnt_State'];
+            $postersID = $event['EventBook_Posted_By_UserID'];
+            $postersName = getEventPostersName($postersID)['USER_NAME'];
+            $eventType = $event['Event_Type'];
 
-        $eventObject = new Event($eventID,$postersID,$eventName,$eventDescription,$eventDate,$eventPrice,$eventAddress
-            ,$eventCity,$eventState,$postersName,$eventType);
+            $eventObject = new Event($eventID, $postersID, $eventName, $eventDescription, $eventDate, $eventPrice, $eventAddress
+                , $eventCity, $eventState, $postersName, $eventType);
 
-        $htmlEventListString.=$eventObject->getEventLayoutString();
+            $htmlEventListString .= $eventObject->getEventLayoutString();
+        }
+        return $htmlEventListString;
+    }else{
+        print_r($eventsFromDatabase);
+        return $eventsFromDatabase;
     }
-    return $htmlEventListString;
 }
 
 ?>

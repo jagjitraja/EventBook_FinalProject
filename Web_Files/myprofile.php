@@ -276,6 +276,7 @@
         <!-- Modal footer -->
         <button type="submit" id="submit_user_profile" class="btn btn-success">Update</button>
         <button type="button" class="btn btn-danger" onclick="$('#noChangeGoToEvents').submit();"data-dismiss="modal">Exit</button>
+        <button type="button" class="btn btn-danger float-right lead" data-toggle="modal" data-target="#modalDeleteAccount">Delete My Account</button>
     </form>
 
 </div>
@@ -286,7 +287,6 @@
 <div class="container-fluid jumbotron" id="eventScrollBack">
     <h6 class="display-4 text-center">My Events</h6>
     <div class="container" id="eventScrollList" style="padding-top: 30px">
-
 
     </div>
 </div>
@@ -418,6 +418,33 @@
                     <h5 class="lead">Are you sure you want to delete this event?</h5>
                     <!-- Modal footer -->
                     <button type="button" id="delete_event_confirm" class="btn btn-success">Yes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalDeleteAccount">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content border-danger">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Account :(</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="deleteAccountForm" method="post" action="eventController.php">
+                    <div class="form-group row" id="hiddenInputValues" style="display: none;">
+                        <input type="hidden" name="PAGE" value="MY_PROFILE"/>
+                        <input type="hidden" name="COMMAND" value="DELETE_ACCOUNT"/>
+                    </div>
+
+                    <h5 class="lead">Are you sure you want to delete your account?</h5>
+                    <!-- Modal footer -->
+                    <button type="submit" id="delete_account_confirm" class="btn btn-success">Yes</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                 </form>
             </div>

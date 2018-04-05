@@ -184,7 +184,7 @@ function getRegisteredEvents($userID,$selectType = "ALL")
 }
 
 
-function updateSavedEvent($eventID, $postersID)
+function addSavedEvent($eventID, $postersID)
 {
     global $db_conn;
     $currentDate = date('Y-m-d');
@@ -202,7 +202,7 @@ function updateSavedEvent($eventID, $postersID)
     }
 }
 
-function updateAttendEvent($eventID, $postersID)
+function addAttendEvent($eventID, $postersID)
 {
     global $db_conn;
 
@@ -288,5 +288,35 @@ function deleteEvent($eventID){
     $result = mysqli_query($db_conn,$sql);
 
     return $result;
+}
+
+function deleteAccount($userID){
+    global $db_conn;
+
+    $sql = "DELETE FROM EventBook_Interested_Users WHERE Interested_User_ID = $userID;";
+    $result = mysqli_query($db_conn,$sql);
+
+    $sql = "DELETE FROM EventBook_Attending_Users WHERE Attending_User_ID = $userID;";
+    $result = mysqli_query($db_conn,$sql);
+
+    $sql = "DELETE FROM EventBook_Events WHERE EventBook_Posted_By_UserID = $userID;";
+    $result = mysqli_query($db_conn,$sql);
+
+    $sql = "DELETE FROM EventBook_Users WHERE User_ID = $userID;";
+    $result = mysqli_query($db_conn,$sql);
+
+    return $result;
+}
+
+function removeSavedEvent($userID,$eventID){
+    global $db_conn;
+
+    $sql = "DELETE FROM EventBook_Interested_Users WHERE 
+Interested_User_ID = '$userID' AND Interested_Event_ID = '$eventID';";
+
+    print_r($sql);
+    $result = mysqli_query($db_conn,$sql);
+
+    return $sql;
 }
 ?>

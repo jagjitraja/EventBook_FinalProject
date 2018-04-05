@@ -38,10 +38,7 @@ class Event
     public function getEventLayoutString(){
 
         $str =  '<div class="card container bg-light border-info mb-3 eventBody" >
-                    <div class = "btn-block float-right mb-2 mt-2 eventCardButtons" style="display:none;">
-                        <button class="btn btn-info btn-sm editEventButton" title="Edit Event" data-toggle="modal" data-target="#modalEditEvent">Edit</button>
-                        <button class="btn btn-danger btn-sm deleteEventButton" title="Delete Event"data-toggle="modal" data-target="#modalDeleteEvent">Delete</button>
-                    </div>
+                   
                     <div class="card-header"><h5>'.$this->postersName.'</h5><h6 class="lead" style="float: right;">'.$this->eventType.'</h6></div>
                     <div class="card-body" id="eventContent">
                         <h5 class="card-title" id="eventName">'.
@@ -56,6 +53,8 @@ class Event
                         <div class="card-footer eventSaveRegisterButtons">
                         <button id="saveEvent" name = "saveEvent" value="'.$this->eventID.'" class="btn btn-primary eventButton">Save Event</button></a>
                         <button id="attendEvent" name = "attendEvent" value="'.$this->eventID.'"class="btn btn-warning eventButton" style="float: right">Attend Event/ Register</button>
+                        <button id="removeEvent" style="display: none;" name = "removeEvent" value="'.$this->eventID.'" class="btn btn-danger">Remove Event</button></a>
+                        
                     </div>
                    </div>
                 </div>';

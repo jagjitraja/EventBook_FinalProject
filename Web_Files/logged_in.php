@@ -38,10 +38,29 @@
                     //console.log(result);
                     $("#eventScrollList").html('');
                     $("#eventScrollList").prepend(result);
-
                     $(".eventButton").click(function (e) {
                         updateUserAndEventData(e);
                     });
+                    //command==='REGISTERED_EVENTS'||
+                    if (command==='GET_MY_SAVED_EVENTS'){
+
+                        $("#removeEvent").show();
+                        $("#saveEvent").hide();
+
+                        $("#removeEvent").click(function (e) {
+                            var eventID = e.target.value;
+                            query = {PAGE:'LOGGED_IN',COMMAND:"REMOVE_SAVED_EVENT",EVENT_ID:eventID};
+                            $.ajax({url:'eventController.php',type:'post',data:query,
+                                success:function(result){
+                                console.log(result);
+                                    getAllEvents('GET_ALL_EVENTS',null,"ALL");
+                                },
+                                fail:function (XMLHttpRequest, textStatus, error) {
+                                    alert("Failed to Update Event :(");
+                                }
+                            });
+                        });
+                    }
 
                     $("#eventFilterTitle").html(type+" EVENTS");
                 },
@@ -56,7 +75,6 @@
             var buttonID = e.target.id;
             var eventID = e.target.value;
             var query = {PAGE:'LOGGED_IN',COMMAND:'GET_ALL_EVENTS'};
-
             switch (buttonID){
                 case 'saveEvent':
                     query = {PAGE:'LOGGED_IN',COMMAND:"SAVE_EVENT",EVENT_ID:eventID};
@@ -70,7 +88,7 @@
 
             $.ajax({url:'eventController.php',type:'post',data:query,
                 success:function(result){
-                    //console.log(result);
+                    console.log(result);
                     $('#resultTitle').html(result);
                     $('#resultModal').modal('toggle');
                 },
@@ -109,23 +127,47 @@
                 var formInputArray = $("#eventForm").serializeArray();
                 var fieldsValuesArray = {};
 
+                $("#inputEventName").prop('required',true);
+                $("#inputEventDescription").prop('required',true);
+                $("#inputEventDate").prop('required',true);
+                $("#inputEventPrice").prop('required',true);
+                $("#inputEventAddress").prop('required',true);
+                $("#city").prop('required',true);
+                $("#state").prop('required',true);
+
+                var empty = false;
+                var emptyField= "";
                 $.each(formInputArray,function (i,field) {
                     var nam = field.name;
                     var val = field.value;
+                    if (val==""){
+                        empty = true;
+                        var input = $("[name ='"+nam+"']");
+                        var label = $("label[for='"+input[0].id+"']");
+                        emptyField = label.html();
+                    }
                     fieldsValuesArray[nam] = val;
                 });
 
-                var query = {EVENT_DATA:fieldsValuesArray};
-                $.ajax({url: "./eventController.php", type:"post",data:query,
-                    success: function(result){
-                        $('#eventScrollList').html('');
-                        getAllEvents('GET_MY_EVENTS',null,"ALL");
-                        $('#modalPostEvent').modal('toggle');
-                    },  fail:function (XMLHttpRequest, textStatus, error) {
-                        alert("An error occured posting the event. Please try again :(");
-                    }});
+                if (empty){
+                    alert("Please fill in the "+ emptyField+" field");
+                    return false;
+                } else {
 
-                $("#eventForm").trigger('reset');
+                    var query = {EVENT_DATA: fieldsValuesArray};
+                    $.ajax({
+                        url: "./eventController.php", type: "post", data: query,
+                        success: function (result){
+                            $('#eventScrollList').html('');
+                            getAllEvents('GET_MY_EVENTS', null, "ALL");
+                            $('#modalPostEvent').modal('toggle');
+                        }, fail: function (XMLHttpRequest, textStatus, error) {
+                            alert("An error occured posting the event. Please try again :(");
+                        }
+                    });
+
+                    $("#eventForm").trigger('reset');
+                }
             });
 
         });
@@ -206,21 +248,21 @@
                         <label for="inputEventName" class="col-sm-4 col-form-label">Event Name:</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" name="EVENTNAME" maxlength="45" id="inputEventName"
-                                   placeholder="Event Name" required/>
+                                   placeholder="Event Name" required=""/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="EVENT_DESCRIPTION" class="col-sm-4 col-form-label">Event Description:</label>
                         <div class="col-sm-8">
                             <textarea class="form-control" name="EVENTDESCRIPTION" id="inputEventDescription"
-                                   placeholder="......." required></textarea>
+                                   placeholder="......." required=""></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputEventDate" class="col-sm-4 col-form-label">Event Date:</label>
                         <div class="col-sm-8">
                             <input type="date" class="form-control" name="EVENTDATE" id="inputEventDate"
-                                   placeholder="DD/MM/YY" required/>
+                                   placeholder="DD/MM/YY" required=""/>
                             <!--pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"-->
                         </div>
                     </div>
@@ -243,7 +285,7 @@
                         <label for="inputEventPrice" class="col-sm-4 col-form-label">Price:</label>
                         <div class="col-sm-8">
                             <input type="number"  class="form-control" name="EVENTPRICE"
-                                   id="inputEventPrice" placeholder="$###.###" required/>
+                                   id="inputEventPrice" placeholder="$###.###" required=""/>
                         </div>
                     </div>
 
@@ -251,7 +293,7 @@
                         <label for="inputEventAddress" class="col-sm-4 col-form-label">Address: </label>
                         <div class="col-sm-8">
                             <input type="text" maxlength="35" class="form-control" name="EVENTADDRESS"
-                                   id="inputEventAddress" placeholder="Street Address" required/>
+                                   id="inputEventAddress" placeholder="Street Address" required=""/>
                         </div>
                     </div>
 
@@ -259,14 +301,14 @@
                         <label for="city" class="col-sm-4 col-form-label">City: </label>
                         <div class="col-sm-8">
                             <input type="text" maxlength="25" class="form-control" name="EVENTCITY"
-                                   id="city" placeholder="City" required/>
+                                   id="city" placeholder="City" required=""/>
                         </div>
                     </div>
 
                     <div class="form-group row" id="stateRow">
                         <label for="state" class="col-sm-4 col-form-label">State:</label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="EVENTSTATE" id="state" required>
+                            <select class="form-control" name="EVENTSTATE" id="state" required="">
                                 <option>AB</option>
                                 <option>BC</option>
                                 <option>MN</option>
