@@ -21,6 +21,7 @@
     <script>
 
         function getAllEvents(command,title,type) {
+            $("#eventScrollList").html('');
             if ( typeof command === 'undefined'){
                 alert("Please Refresh, an error occured");
                 return;
@@ -36,23 +37,48 @@
             $.ajax({url:'eventController.php',type:'post',data:query,
                 success:function(result){
                     //console.log(result);
-                    $("#eventScrollList").html('');
-                    $("#eventScrollList").prepend(result);
+                    $("#eventScrollList").html(result);
                     $(".eventButton").click(function (e) {
                         updateUserAndEventData(e);
                     });
                     //command==='REGISTERED_EVENTS'||
                     if (command==='GET_MY_SAVED_EVENTS'){
 
-                        $("#removeEvent").show();
-                        $("#saveEvent").hide();
+                        $("#savedEvents").addClass("active");
+                        $("#registerEvents").removeClass("active");
+                        $(".removeEvent").show();
+                        $(".saveEvent").hide();
 
                         $("#removeEvent").click(function (e) {
+                            alert("Eeeeeeeee");
                             var eventID = e.target.value;
                             query = {PAGE:'LOGGED_IN',COMMAND:"REMOVE_SAVED_EVENT",EVENT_ID:eventID};
                             $.ajax({url:'eventController.php',type:'post',data:query,
                                 success:function(result){
-                                console.log(result);
+                                    console.log(result);
+                                    $("#eventScrollList").html('');
+                                    getAllEvents('GET_ALL_EVENTS',null,"ALL");
+                                },
+                                fail:function (XMLHttpRequest, textStatus, error) {
+                                    alert("Failed to Update Event :(");
+                                }
+                            });
+                        });
+                    }else if (command==='REGISTERED_EVENTS'){
+
+                        $("#registerEvents").addClass("active");
+                        $("#savedEvents").removeClass("active");
+                        $(".removeEvent").show();
+                        $(".attendEvent").hide();
+
+                        $("#removeEvent").click(function (e) {
+                            alert("BBBBBBBBBBB");
+                            var eventID = e.target.value;
+                            query = {PAGE:'LOGGED_IN',COMMAND:"REMOVE_ATTENDING_EVENT",EVENT_ID:eventID};
+                            $.ajax({url:'eventController.php',type:'post',data:query,
+                                success:function(result){
+                                    console.log(result);
+                                    $("#eventScrollList").html('');
                                     getAllEvents('GET_ALL_EVENTS',null,"ALL");
                                 },
                                 fail:function (XMLHttpRequest, textStatus, error) {
@@ -158,8 +184,7 @@
                     $.ajax({
                         url: "./eventController.php", type: "post", data: query,
                         success: function (result){
-                            $('#eventScrollList').html('');
-                            getAllEvents('GET_MY_EVENTS', null, "ALL");
+                            getAllEvents('GET_ALL_EVENTS', null, "ALL");
                             $('#modalPostEvent').modal('toggle');
                         }, fail: function (XMLHttpRequest, textStatus, error) {
                             alert("An error occured posting the event. Please try again :(");
@@ -179,7 +204,7 @@
 
 
 <nav id="navBar" class="navbar navbar-expand-md navbar-light bg-success fixed-top" style="margin:0;z-index: 10000;">
-    <a class="navbar-brand" onclick="getAllEvents('GET_ALL_EVENTS',null,'ALL')">EventBook</a>
+    <a class="navbar-brand active" onclick="getAllEvents('GET_ALL_EVENTS',null,'ALL')">EventBook</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#myNavBar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -187,17 +212,16 @@
     <div class="collapse navbar-collapse" id="myNavBar">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" id="postedEvents" onclick="getAllEvents('REGISTERED_EVENTS',this.name,'ALL')" data-target="#myNavBar"data-toggle="collapse" name = "My Registered Events">My Registered Events</a>
+                <a class="nav-link" id="registerEvents" onclick="getAllEvents('REGISTERED_EVENTS',this.name,'ALL')" data-target="#myNavBar"data-toggle="collapse" name = "My Registered Events">My Registered Events</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="savedEvents" onclick="getAllEvents('GET_MY_SAVED_EVENTS',this.name,'ALL')" data-target="#myNavBar"data-toggle="collapse"name = "My Saved Events">Saved Events</a>
             </li>
             <li class="nav-item">
-                <!--onclick="getAllEvents('GET_MY_EVENTS',this.name)" -->
                 <a class="nav-link" id="myProfile" onclick="$('#goToProfileForm').submit()"  data-target="#myNavBar" data-toggle="collapse" name = "My Profile">My Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="myProfile" onclick="$('#signOutForm').submit()">Logout</a>
+                <a class="nav-link" id="logout" onclick="$('#signOutForm').submit()">Logout</a>
             </li>
         </ul>
             <input class="form-control " type="text" placeholder="Search Events" id="searchField" onkeydown="search()"/>

@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE hmtl>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -95,7 +95,7 @@
                     success:function(result){
                         //console.log(result);
                         $("#eventScrollList").html('');
-                        $("#eventScrollList").prepend(result);
+                        $("#eventScrollList").html(result);
 
                         $(".eventButton").click(function () {
                             showModal("signInAnchor");
@@ -153,7 +153,7 @@
                 $.ajax({url:'eventController.php',type:'post',data:query,
                     success:function(result){
                         $("#eventScrollList").html('');
-                        $("#eventScrollList").append(result);
+                        $("#eventScrollList").html(result);
 
                         $(".eventButton").click(function () {
                             showModal("signInAnchor");
@@ -204,7 +204,7 @@
 
 <body>
 <nav id="navBar" class="navbar navbar-expand-md navbar-light bg-success fixed-top" style="margin:0">
-    <a class="navbar-brand" href="home.php">EventBook</a>
+    <a class="navbar-brand active" href="home.php">EventBook</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#myNavBar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -338,13 +338,10 @@
                         <button type="button" class="btn btn-danger" onclick="hideModal()" value="Close">Close</button>
                     </div>
                 </form>
-
-
             </div>
         </div>
     </div>
 </div>
-
 
 <div class="container-fluid jumbotron" id="eventScrollBack">
 

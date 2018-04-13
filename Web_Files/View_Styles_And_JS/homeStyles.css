@@ -8,6 +8,12 @@ a{
     cursor: pointer !important;
 }
 
+.active{
+    background: sandybrown;
+    padding: 0.5em;
+    font-weight: bold;
+    border-radius: 0.5em;
+}
 #error{
     padding: 0.25em;
     border-radius: 0.3em;

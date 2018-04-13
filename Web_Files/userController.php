@@ -9,6 +9,7 @@
 //TODO: CONTROL ALSO IF USER COMES BACK WITH SESSION
 
 if (empty($_POST['PAGE'])) {
+    print_r("Aaaaaaaaaaaaaaaaaaaaaaa");
     include("./home.php");
     $displayModal = 'NO_MODAL';
     exit();
@@ -17,7 +18,6 @@ if (empty($_POST['PAGE'])) {
 require("./ModelFiles/model.php");
 
 if ($_POST['PAGE'] == 'HOME') {
-
     if ($_POST['COMMAND'] == 'SIGNIN') {
         $emailEntered = $_POST['EMAIL'];
         $passwordEntered = $_POST['PASSWORD'];
@@ -57,6 +57,7 @@ if ($_POST['PAGE'] == 'HOME') {
             setcookie("email", $emailEntered, time() + 86400);
             $userData = getUserData($emailEntered, $passwordEntered);
             $_SESSION['USER_INFO'] = $userData;
+
             include("./logged_in.php");
         } else {
             $displayModal = 'REGISTER';
@@ -93,13 +94,13 @@ if ($_POST['PAGE'] == 'HOME') {
             $passwordEntered = $_POST['PASSWORD'];
             $userID = $_SESSION['USER_INFO']['User_ID'];
             var_dump($_SESSION);
-            if(updateUserInfo($userID,$username,$phoneNumber,$emailEntered,$passwordEntered,$userState,$userCity)){
+            if (updateUserInfo($userID, $username, $phoneNumber, $emailEntered, $passwordEntered, $userState, $userCity)) {
                 echo 'Update Successful :)';
                 $userData = getUserData($emailEntered, $passwordEntered);
                 $_SESSION['userEmail'] = $emailEntered;
                 $_SESSION['USER_INFO'] = $userData;
                 include './logged_in.php';
-            }else{
+            } else {
                 echo 'Update Failed, Signing out :(';
                 signOut();
             }
@@ -114,8 +115,6 @@ if ($_POST['PAGE'] == 'HOME') {
 
 } else {
     echo "An error occured";
-    signOut();
-    include "home.php";
 }
 
 

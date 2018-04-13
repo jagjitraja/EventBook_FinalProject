@@ -319,4 +319,33 @@ Interested_User_ID = '$userID' AND Interested_Event_ID = '$eventID';";
 
     return $sql;
 }
+function removeAttendingEvent($userID,$eventID){
+    global $db_conn;
+
+    $sql = "DELETE FROM EventBook_Attending_Users WHERE 
+Attending_User_ID = '$userID' AND Attending_Event_ID = '$eventID';";
+
+    print_r($sql);
+    $result = mysqli_query($db_conn,$sql);
+
+    return $sql;
+}
+
+
+function selectEvent($eventID){
+    global $db_conn;
+
+    $sql = "SELECT * FROM EventBook_Events WHERE Event_ID = '$eventID'
+            ORDER BY Event_Posting_Date DESC;";
+
+    $result = mysqli_query($db_conn, $sql);
+    $eventArray = array();
+    $i = 0;
+    while ($row = mysqli_fetch_assoc($result)) {
+        $eventArray[$i] = $row;
+        $i++;
+    }
+    return $eventArray;
+}
+
 ?>
